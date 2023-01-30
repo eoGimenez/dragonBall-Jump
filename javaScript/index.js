@@ -87,7 +87,7 @@ class Goku {
             this.x = Math.floor(Math.random()*(canvas.width - this.width));
             this.y = Math.floor(Math.random()*(canvas.height - this.height));
             this.imgPlatform = new Image ();
-            this.imgPlatform.src = "../images/kinton.png";
+            this.imgPlatform.src = "images/kinton.png";
             this.velocidadY = velocidadY;
         }
         print (ctx) {
@@ -103,7 +103,7 @@ class Goku {
         constructor (x, y, width, heigth) {
             super (x, y, width, heigth) //son caracteristicas de Platform que queremos conservar,
             this.imgPlatformMove = new Image ();
-            this.imgPlatformMove.src = "../images/kinton.png";
+            this.imgPlatformMove.src = "images/kinton.png";
             this.velocidadX = 20;
             this.velocidadY = velocidadY;
         }
@@ -157,8 +157,7 @@ class Goku {
         this.Wallpaper = new Image ();
         this.Wallpaper.src = "images/wallpaper.png";
         this.goku = new Goku;
-        this.platform = new Platform;
-        this.platformMove = new PlatformMove;
+         this.platformMove = new PlatformMove;
         this.platformBreak = new PlatformBreak;
         this.platforms = [];
         this.obstacles = [];
@@ -172,6 +171,7 @@ class Goku {
              this.intervalId = setInterval (() => {
                 this.iteration++;
                 this.clear();
+                this.recalculate(); 
                 this.print();
                
              }, 20) 
@@ -190,7 +190,7 @@ class Goku {
             })
         }
         recalculate() {
-            if(this.iteration == 60) {
+            if(this.iteration == 70) {
             let platform = new Platform(this.canvas);
             this.platforms.push(platform);
             this.iteration = 0;
