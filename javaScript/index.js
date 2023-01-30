@@ -1,44 +1,16 @@
 window .onload = () => {
-            //60 x 90 tamaño 80 x 105;
-            const gokuSprite = {
-        posSprite: [{
-            x_ini: 5,
-            y_ini: 5,
-            w: 60,
-            h: 90
-        },
-        {
-            x_ini: 65,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 122,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 180,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 235,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {   
-            x_ini: 288,
-            y_ini: 5,
-            w: 65,
-            h: 99
-        }],
+    const gokuSprite = {
+        posSprite: [
+          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
+        ],
         src: "images/Sprites.png"
-    }
+
+    };
 class Goku {
     constructor () {
             this.x = 225;
@@ -51,6 +23,7 @@ class Goku {
             this.imgGoku.src = gokuSprite.src;
             this.jump= 60;
             this.i = 0;
+            this.time = 0;
             //this.test = this.print();
         }
         print (ctx) {
@@ -156,7 +129,7 @@ class Goku {
         this.backGround = new Image ();
         this.backGround.src = "";
         this.wallpaper = new Image ();
-        this.wallpaper.src = "images/wallpaper.png";
+        this.wallpaper.src = "images/wallpaper.jpeg";
         this.goku = new Goku;
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
@@ -210,4 +183,5 @@ class Goku {
     function startGame () {
         game.start()
     }
+    
 }
