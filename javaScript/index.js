@@ -1,19 +1,65 @@
 window .onload = () => {
-
+            //60 x 90 tamaño 80 x 105;
+    const gokuSprite = {
+        posSprite: [{
+            x_ini: 5,
+            y_ini: 5,
+            w: 60,
+            h: 90
+        },
+        {
+            x_ini: 65,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 122,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 180,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 235,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {   
+            x_ini: 288,
+            y_ini: 5,
+            w: 65,
+            h: 99
+        }],
+        src: "images/Sprites.png"
+    }
 class Goku {
     constructor () {
             this.x = x;
             this.y = y;
-            this.width = width;
-            this.heigth = heigth;
+            this.width = 80 //width;
+            this.heigth = 105 //heigth;
             this.velocidadX = velocidadX;
             this.velocidadY = velocidadY;
             this.imgGoku = new Image ();
-            this.imgGoku.src = "";
+            this.imgGoku.src = gokuSprite.src;
             this.jump= 60;
+            this.i = 0;
         }
         print (ctx) {
-            ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
+            //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
+
+            setInterval(() => {
+                
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
+                this.i = (this.i+1)%gokuSprite.posSprite.length;
+            }, 200);
         }
         moveLeft () {
             this.x -= this.velocidadX; // falta margen
@@ -23,7 +69,6 @@ class Goku {
         }
         rebound (ctx) {
             // re ajustar a nuevas medidas canva,
-            
             if (cont < 25 || cont >54) {
                 test.y = test.y + (test.velocidadY * intervaloSalto) + ( (test.aceleracion*intervaloSalto) /2)
                 ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku subiendo
@@ -36,30 +81,40 @@ class Goku {
         }
     }
     class Platform {
-        constructor () {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.heigth = heigth;
+        constructor (canvas) {
+            this.width = 160;
+            this.heigth = 60;
+            this.x = Math.floor(Math.random()*(canvas.width - this.width));
+            this.y = Math.floor(Math.random()*(canvas.height - this.height));
             this.imgPlatform = new Image ();
-            this.imgPlatform.src = "";
+            this.imgPlatform.src = "../images/kinton.png";
+            this.velocidadY = velocidadY;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
         }
+        move () {
+            this.y += this.velocidadY
+        }
+        
+
     }
     class PlatformMove extends Platform {
         constructor (x, y, width, heigth) {
             super (x, y, width, heigth) //son caracteristicas de Platform que queremos conservar,
             this.imgPlatformMove = new Image ();
-            this.imgPlatformMove.src = "";
+            this.imgPlatformMove.src = "../images/kinton.png";
+            this.velocidadX = 20;
+            this.velocidadY = velocidadY;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatformMove, this.x, this.y, this.width, this.heigth)
         }
         move() {
-            // buscar algoritmo equivalente al del salto
+            this.x += this.velocidadX;
+            this.y += this.velocidadY
         }
+        
     }
     class PlatformBreak extends Platform {
         constructor (x, y, width, heigth) {
@@ -85,7 +140,12 @@ class Goku {
             this.width = width;
             this.heigth = heigth;
             this.velocidadX = velocidadX;
+            this.imgObstacle = new Image ();
+            this.imgObstacle.src = "";
             //this.velocidadY = velocidadY; BONUS
+        }
+        print(){
+            ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.height)
         }
     }
     class Game {
@@ -100,6 +160,7 @@ class Goku {
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
         this.platformBreak = new PlatformBreak;
+        this.platforms = [];
         this.obstacles = [];
         this.score = 0;
         this.intervalId = undefined;
@@ -123,6 +184,19 @@ class Goku {
         clear () {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
+        print () {
+            this.platforms.forEach(platform => {
+                platform.print(this.ctx)
+            })
+        }
+        recalculate() {
+            if(this.iteration == 60) {
+            let platform = new Platform(this.canvas);
+            this.platforms.push(platform);
+            this.iteration = 0;
+            }
+        }
+     
     }
 
     let game = new Game();
@@ -133,5 +207,6 @@ class Goku {
     function startGame () {
         game.start()
     }
+
 
 }
