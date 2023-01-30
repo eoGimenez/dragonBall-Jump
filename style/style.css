@@ -61,4 +61,8 @@ body {
     display: inline-block;
     
   }
+
+  #canvas {
+    opacity: 70%;
+  }
   
