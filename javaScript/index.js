@@ -1,19 +1,65 @@
 window .onload = () => {
-
+            //60 x 90 tamaño 80 x 105;
+    const gokuSprite = {
+        posSprite: [{
+            x_ini: 5,
+            y_ini: 5,
+            w: 60,
+            h: 90
+        },
+        {
+            x_ini: 65,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 122,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 180,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {
+            x_ini: 235,
+            y_ini: 5,
+            w: 60,
+            h: 65
+        },
+        {   
+            x_ini: 288,
+            y_ini: 5,
+            w: 65,
+            h: 99
+        }],
+        src: "images/Sprites.png"
+    }
 class Goku {
     constructor () {
             this.x = x;
             this.y = y;
-            this.width = width;
-            this.heigth = heigth;
+            this.width = 80 //width;
+            this.heigth = 105 //heigth;
             this.velocidadX = velocidadX;
             this.velocidadY = velocidadY;
             this.imgGoku = new Image ();
-            this.imgGoku.src = "";
+            this.imgGoku.src = gokuSprite.src;
             this.jump= 60;
+            this.i = 0;
         }
         print (ctx) {
-            ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
+            //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
+
+            setInterval(() => {
+                
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
+                this.i = (this.i+1)%gokuSprite.posSprite.length;
+            }, 200);
         }
         moveLeft () {
             this.x -= this.velocidadX; // falta margen
@@ -23,7 +69,6 @@ class Goku {
         }
         rebound (ctx) {
             // re ajustar a nuevas medidas canva,
-            
             if (cont < 25 || cont >54) {
                 test.y = test.y + (test.velocidadY * intervaloSalto) + ( (test.aceleracion*intervaloSalto) /2)
                 ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku subiendo
