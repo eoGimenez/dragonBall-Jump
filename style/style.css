@@ -1,0 +1,13 @@
+body {
+    background-image: url("../images/casa_kame.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+/*     height: 100vw; */
+    
+}
+
+#canvas {
+    border: 2px solid black;
+}
