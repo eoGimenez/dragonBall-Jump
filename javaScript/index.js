@@ -1,6 +1,6 @@
 window .onload = () => {
             //60 x 90 tamaño 80 x 105;
-    const gokuSprite = {
+            const gokuSprite = {
         posSprite: [{
             x_ini: 5,
             y_ini: 5,
@@ -41,24 +41,25 @@ window .onload = () => {
     }
 class Goku {
     constructor () {
-            this.x = x;
-            this.y = y;
+            this.x = 225;
+            this.y = 325;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
-            this.velocidadX = velocidadX;
-            this.velocidadY = velocidadY;
+            this.velocidadX = 10;
+            this.velocidadY = 20;
             this.imgGoku = new Image ();
             this.imgGoku.src = gokuSprite.src;
             this.jump= 60;
             this.i = 0;
+            //this.test = this.print();
         }
         print (ctx) {
             //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
 
             setInterval(() => {
-                
                 ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
                 this.i = (this.i+1)%gokuSprite.posSprite.length;
+                
             }, 200);
         }
         moveLeft () {
@@ -84,11 +85,11 @@ class Goku {
         constructor (canvas) {
             this.width = 160;
             this.heigth = 60;
-            this.x = Math.floor(Math.random()*(canvas.width - this.width));
-            this.y = Math.floor(Math.random()*(canvas.height - this.height));
+            this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
+            this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
-            this.imgPlatform.src = "../images/kinton.png";
-            this.velocidadY = velocidadY;
+            this.imgPlatform.src = "images/kinton.png";
+            this.velocidadY = 10;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
@@ -103,9 +104,9 @@ class Goku {
         constructor (x, y, width, heigth) {
             super (x, y, width, heigth) //son caracteristicas de Platform que queremos conservar,
             this.imgPlatformMove = new Image ();
-            this.imgPlatformMove.src = "../images/kinton.png";
+            this.imgPlatformMove.src = "images/kinton.png";
             this.velocidadX = 20;
-            this.velocidadY = velocidadY;
+            this.velocidadY = 10;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatformMove, this.x, this.y, this.width, this.heigth)
@@ -154,8 +155,8 @@ class Goku {
         this.ctx = canvas.getContext("2d");
         this.backGround = new Image ();
         this.backGround.src = "";
-        this.Wallpaper = new Image ();
-        this.Wallpaper.src = "images/wallpaper.png";
+        this.wallpaper = new Image ();
+        this.wallpaper.src = "images/wallpaper.png";
         this.goku = new Goku;
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
@@ -172,8 +173,9 @@ class Goku {
              this.intervalId = setInterval (() => {
                 this.iteration++;
                 this.clear();
+                this.recalculate();
                 this.print();
-               
+                this.goku.test
              }, 20) 
             }
         
@@ -185,9 +187,11 @@ class Goku {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
         print () {
+            this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
+            //this.goku.print(this.ctx)
             this.platforms.forEach(platform => {
-                platform.print(this.ctx)
-            })
+                this.platform.print(this.ctx);
+            });
         }
         recalculate() {
             if(this.iteration == 60) {
@@ -200,13 +204,10 @@ class Goku {
     }
 
     let game = new Game();
-    document.getElementById('Start').onclick = () => {
+    document.getElementById('btn').onclick = () => {
         startGame();
     }
-
     function startGame () {
         game.start()
     }
-
-
 }
