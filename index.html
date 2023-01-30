@@ -8,9 +8,25 @@
     <link rel="stylesheet" href="style/style.css"/>
 </head>
 <body> 
-    <h1>hola</h1>
+    <div id = "intro">
+        <img id = "title" src = "images/Title.png" alt = "Game title"></img>
+        <div>
+            <ul>
+                <li>Tu objetivo: !Alcanzar la mayor altura posible! </li>
+                <!-- <li>Intenta abatir al mayor número de enemigos</li> -->
+                <li>Intenta no ser abatido</li>
+                <li>Para ello... Emplea tus flechas direccionales</li>
+                
+            </ul>
+        <img id = "arrows" src = "images/arrows.png" alt = "Arrow"></img>
+        </div>
+        <button id = "Start">Start</button>
+        <button id = "Settings">Settings</button>
+
+    </div>
+
     <div id="gameBoard">
-        <canvas id="canvas" width="600" height="300"></canvas>
+        <canvas id="canvas" width="450" height="450"></canvas>
     </div>
     <script src="javaScript/index.js"></script>
 </body>
