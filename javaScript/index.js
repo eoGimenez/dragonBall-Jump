@@ -85,6 +85,8 @@ class Goku {
             this.width = width;
             this.heigth = heigth;
             this.velocidadX = velocidadX;
+            this.imgObstacle = new Image ();
+            this.imgObstacle.src = "";
             //this.velocidadY = velocidadY; BONUS
         }
     }
