@@ -3,11 +3,14 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
-/*     height: 100vw; */
     
 }
 
+#title {
+    background-size: cover;
+    display: flex;
+    width: 300px;
+}
 #canvas {
     border: 2px solid black;
 }
