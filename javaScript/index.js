@@ -94,6 +94,8 @@ class Goku {
         this.ctx = canvas.getContext("2d");
         this.backGround = new Image ();
         this.backGround.src = "";
+        this.Wallpaper = new Image ();
+        this.Wallpaper.src = "images/wallpaper.png";
         this.goku = new Goku;
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
@@ -109,6 +111,7 @@ class Goku {
              this.intervalId = setInterval (() => {
                 this.iteration++;
                 this.clear();
+                this.print();
                
              }, 20) 
             }
