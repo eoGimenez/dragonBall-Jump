@@ -1,4 +1,4 @@
-//window .onload = () => {
+window .onload = () => {
 
 class Goku {
     constructor () {
@@ -88,7 +88,7 @@ class Goku {
             //this.velocidadY = velocidadY; BONUS
         }
     }
-    class Juego {
+    class Game {
         constructor () {
         this.canvas = document.getElementById("canvas");
         this.ctx = canvas.getContext("2d");
@@ -104,12 +104,31 @@ class Goku {
         this.iteration = 0;
         }
 
-        star () {
-
+        start () {
+            if(this.intervalId == undefined) {
+             this.intervalId = setInterval (() => {
+                this.iteration++;
+                this.clear();
+               
+             }, 20) 
+            }
+        
         }
         stop () {
-
+            if(this.intervalId) clearInterval(this.intervalId)
+        }
+        clear () {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
     }
-    
-    //}
+
+    let game = new Game();
+    document.getElementById('Start').onclick = () => {
+        startGame();
+    }
+
+    function startGame () {
+        game.start()
+    }
+
+}
