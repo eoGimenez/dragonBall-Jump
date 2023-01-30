@@ -81,30 +81,40 @@ class Goku {
         }
     }
     class Platform {
-        constructor () {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.heigth = heigth;
+        constructor (canvas) {
+            this.width = 160;
+            this.heigth = 60;
+            this.x = Math.floor(Math.random()*(canvas.width - this.width));
+            this.y = Math.floor(Math.random()*(canvas.height - this.height));
             this.imgPlatform = new Image ();
-            this.imgPlatform.src = "";
+            this.imgPlatform.src = "../images/kinton.png";
+            this.velocidadY = velocidadY;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
         }
+        move () {
+            this.y += this.velocidadY
+        }
+        
+
     }
     class PlatformMove extends Platform {
         constructor (x, y, width, heigth) {
             super (x, y, width, heigth) //son caracteristicas de Platform que queremos conservar,
             this.imgPlatformMove = new Image ();
-            this.imgPlatformMove.src = "";
+            this.imgPlatformMove.src = "../images/kinton.png";
+            this.velocidadX = 20;
+            this.velocidadY = velocidadY;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatformMove, this.x, this.y, this.width, this.heigth)
         }
         move() {
-            // buscar algoritmo equivalente al del salto
+            this.x += this.velocidadX;
+            this.y += this.velocidadY
         }
+        
     }
     class PlatformBreak extends Platform {
         constructor (x, y, width, heigth) {
@@ -134,6 +144,9 @@ class Goku {
             this.imgObstacle.src = "";
             //this.velocidadY = velocidadY; BONUS
         }
+        print(){
+            ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.height)
+        }
     }
     class Game {
         constructor () {
@@ -145,6 +158,7 @@ class Goku {
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
         this.platformBreak = new PlatformBreak;
+        this.platforms = [];
         this.obstacles = [];
         this.score = 0;
         this.intervalId = undefined;
@@ -167,6 +181,19 @@ class Goku {
         clear () {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
+        print () {
+            this.platforms.forEach(platform => {
+                platform.print(this.ctx)
+            })
+        }
+        recalculate() {
+            if(this.iteration == 60) {
+            let platform = new Platform(this.canvas);
+            this.platforms.push(platform);
+            this.iteration = 0;
+            }
+        }
+     
     }
 
     let game = new Game();
@@ -177,5 +204,6 @@ class Goku {
     function startGame () {
         game.start()
     }
+
 
 }
