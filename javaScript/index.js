@@ -154,8 +154,8 @@ class Goku {
         this.ctx = canvas.getContext("2d");
         this.backGround = new Image ();
         this.backGround.src = "";
-        this.Wallpaper = new Image ();
-        this.Wallpaper.src = "images/wallpaper.png";
+        this.wallpaper = new Image ();
+        this.wallpaper.src = "images/wallpaper.png";
         this.goku = new Goku;
         this.platform = new Platform;
         this.platformMove = new PlatformMove;
