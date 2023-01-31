@@ -41,3 +41,6 @@ let inter = setInterval(() => {
     ctx.fillStyle = "black";
     rebote()
 }, 20);
+
+
+
