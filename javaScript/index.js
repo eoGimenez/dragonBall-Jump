@@ -57,6 +57,10 @@ class Goku {
                 gokuCount = 0;
             }
         }
+        move () {
+            this.y += this.velocidadY;
+            this.velocidadY += this.gravity;
+        }
         moveLeft () {
             this.x -= this.velocidadX;
             if (this.x < 0) {
@@ -69,6 +73,28 @@ class Goku {
                 this.x = 0;
               }
         }
+        colision (platforms) {
+            for (let i = 0; i < platforms.length; i++) {
+                let platforms = platforms[i];
+                if (this.x + this.width >= platforms.x_ini && this.x <= platforms.x_ini + platforms.w &&
+                    this.y + this.heigth >= platforms.y_ini && this.y <= platforms.y_ini + platforms.h) {
+                    this.y = platforms.y_ini - this.heigth;
+                    this.aceleracion = 0;
+                }
+            }
+        }
+        update () {
+            this.y += this.aceleracion;
+            this.aceleracion += this.gravity;
+            this.colision(platforms);
+            platforms.forEach(platform => {
+                if (this.x + this.width > platform.x_ini && this.x < platform.x_ini + platform.w && this.y + this.heigth > platform.y_ini && this.y < platform.y_ini + platform.h) {
+                  this.velocidadY = 0;
+                  this.y = platform.y_ini - this.heigth;
+                }
+              });
+        }
+
         
     }
 
@@ -169,7 +195,6 @@ class Goku {
                     this.jump();
                     this.gravity();
                     this.recalculate();
-                    this.gravity();
                     this.print();
                     this.stop();
                 }, 20) 
@@ -192,22 +217,24 @@ class Goku {
             this.ctx.font = "20px Arial";
             this.ctx.fillText(`Score: ${this.score}`, 10, 30);
             this.platform.print(this.ctx);
-            this.goku.rebound(this.ctx);
             this.goku.print(this.ctx);
         }
-        Jump(){
+        jump(){
             let velocidadY = 0;
             let gravity = 0.98;
             let maxHeigth = 550;
             if (this.goku.y >= maxHeigth) {
-                velocidadY =- velocidadY
+                velocidadY =- gravity;
              }
          }
         gravity() {
-            let velocidadY = 0;
+            let velocidadY = 2;
             let gravity = 0.98;
                 velocidadY += gravity;
                 this.goku.y += velocidadY;
+            this.platforms.forEach (platform => {
+                platform.y_ini += gravity;
+            })    
             
         }
         recalculate() {
