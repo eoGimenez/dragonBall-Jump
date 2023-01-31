@@ -17,11 +17,11 @@ window .onload = () => {
     };
 class Goku {
     constructor () {
-            this.x = 225;
-            this.y = 450;
+            this.x = 150;
+            this.y = 280;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
-            this.velocidadX = 10;
+            this.velocidadX = 20;
             this.velocidadY = 5;
             this.aceleracion = -9.8,
             this.imgGoku = new Image ();
@@ -56,29 +56,18 @@ class Goku {
         moveRight (){
             this.x += this.velocidadX // falta margen
         }
-        rebound (ctx) {
-            // re ajustar a nuevas medidas canva,
-             if (cont < 25 || cont >54) {
-                this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
-              //ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
-              //this.print(ctx)
-            } else if ( cont > 25 ) {
-                this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
-                //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
-            }
-            if (cont >= 49) cont = 0; 
-        }
+  
+        salto() {
+            this.y -= this.velocidadY}
     }
     class Platform {
         constructor (canvas) {
-            // this.width = 160;
-            // this.heigth = 60;
             this.platform = [
-                { x_ini: 300, y_ini: 350, w: 160, h: 60},
-                { x_ini: 200, y_ini: 450, w: 160, h: 60},
-                { x_ini: 400, y_ini: 150, w: 160, h: 60},
-                { x_ini: 100, y_ini: 550, w: 160, h: 60}, 
-                { x_ini: 50, y_ini: 50, w: 160, h: 60},
+                { x_ini: 100, y_ini: 550, w: 160, h: 60},
+                { x_ini:  60, y_ini: 450, w: 160, h: 60},
+                { x_ini:  100, y_ini: 150, w: 160, h: 60},
+                { x_ini:  50, y_ini: 320, w: 160, h: 60}, 
+                { x_ini:  60, y_ini: 50, w: 160, h: 60},
                 
             ],
             // this.x = Math.floor(Math.random()*(450/* canvas.width */ /* - this.width))
@@ -90,7 +79,7 @@ class Goku {
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
             this.platform.forEach(pos => {
-                ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h);
+            ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h)
             });
         }
         move () {
@@ -127,7 +116,7 @@ class Goku {
         print (ctx) {
             ctx.drawImage(this.imgPlatformBreak, this.x, this.y, this.width, this.heigth)
         }
-        /*    BONUS     break (ctx) {
+        /* g   BONUS     break (ctx) {
             ctx.drawImage(this.imgPlatformBreaking, this.x, this.y, this.width, this.heigth)
             BONUS
             BONUS
@@ -155,7 +144,7 @@ class Goku {
         this.backGround = new Image ();
         this.backGround.src = "";
         this.wallpaper = new Image ();
-        this.wallpaper.src = "images/wallpaper.png";
+        this.wallpaper.src = "images/wallpaper.jpeg";
         this.goku = new Goku ();
         this.platform = new Platform ();
         this.imageKinton = new Image ()
@@ -163,13 +152,6 @@ class Goku {
 /*         this.platformMove = new PlatformMove ();
         this.platformBreak = new PlatformBreak (); */
         this.platforms = [];
-       /*      x_ini: Math.floor(Math.random()*(290)), y_ini: 200, w: 160, h: 60]; */
-     /*        { x_ini: 50, y_ini: 5, w: 60, h: 65 },
-            { x_ini: 122, y_ini: 5, w: 60, h: 65 },
-            { x_ini: 180, y_ini: 5, w: 60, h: 65 },
-            { x_ini: 235, y_ini: 5, w: 60, h: 65 },
-            { x_ini: 288, y_ini: 5, w: 65, h: 99 }, */
-       /*  this.platformsMove= []; */
         this.obstacles = [];
         this.score = 0;
         this.intervalId = undefined;
@@ -186,14 +168,7 @@ class Goku {
                     this.clear();
                     this.recalculate();
                     this.print();
-                    this.goku.rebound(this.ctx);
-                    this.goku.print(this.ctx);
-                }, 20) 
-                    /* this.goku.rebound(this.ctx); */
-                    //this.ctx.drawImage(this.goku.test2)
-                    /* console.log("test 20") */
-                    /* this.goku.print(this.ctx); */
-              /*   }, 100)  */
+                }, 100) 
             }
         
         }
@@ -205,28 +180,33 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-        /*  this.platforms.forEach(platform => {
-                platform.print(this.ctx);}) */
-            /* this.platforms.forEach(platform => { */
-            //this.goku.print(this.ctx)
-           /*  this.ctx.drawImage(this.platform, 0, 0, this.canvas.width, this.canvas.height) */
-            //this.goku.print(this.ctx)
+            this.platform.print(this.ctx);
+            this.goku.rebound(this.ctx);
+            this.goku.print(this.ctx);
            
-           /*  this.platformsMove.forEach(platformsMove => {
-                platformsMove.print(this.ctx);})  */
+
+            /* this.platformsMove.forEach(platformsMove => {
+                platformsMove.print(this.ctx);}) */ 
         }
         recalculate() {
             if(this.iteration == 60) {
-            let platform = new Platform(this.canvas)
-           /*  let platformMove = new PlatformMove(this.canvas) */
-           /* this.platforms.push(platform); */
-           /*  this.platformsMove.push(platform) */
-            this.iteration = 0;
+            let platform = new Platform(this.canvas);         
+            /* this.platformsMove.push(platform) */
+            /* this.iteration = 0; */
             }
+    /*     this.platform.platform.forEach((platform) => {
+           this.goku.salto(); 
+            if(( this.goku.x + this.goku.w < platform.x_ini || 
+                this.goku.x > platform.x_ini + 160 || 
+                this.goku.y > platform.y_ini + 60 ||
+                this.goku.y + this.goku.heigth < platform.y_ini) ) {
+                  this.goku.y++;
+                } */
+       /*  }) */
         }
     }
     let game = new Game();
-    document.getElementById('btn').onclick = () => {
+    document.getElementById('btn'). onclick = () => {
         startGame();
     }
     function startGame () {
@@ -235,11 +215,11 @@ class Goku {
     document.getElementsByTagName("body")[0].addEventListener ("keydown", (flecha) => {
         switch(flecha.key) {
           case "ArrowLeft" : 
-          this.goku.moveLeft()
+          game.goku.moveLeft()
           //if(player.x < 0) player.x = 0;
           break;
           case "ArrowRight" : 
-          this.goku.moveRight()
+          game.goku.moveRight()
           //if(player.x > 430) player.x = 430;
           break;
           default:
