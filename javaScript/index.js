@@ -13,16 +13,23 @@ window .onload = () => {
           { x_ini: 288, y_ini: 5, w: 65, h: 99 }
         ],
         src: "images/Sprites.png"
-        
-    };
+    };    
+    let platforms = [
+            { x_ini: 300, y_ini: 350, w: 160, h: 60},
+            { x_ini: 200, y_ini: 450, w: 160, h: 60},
+            { x_ini: 400, y_ini: 150, w: 160, h: 60},
+            { x_ini: 100, y_ini: 550, w: 160, h: 60}, 
+            { x_ini: 50, y_ini: 50, w: 160, h: 60}
+        ];
 class Goku {
     constructor () {
-            this.x = 150;
-            this.y = 280;
+            this.x = 140;
+            this.y = 250;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
             this.velocidadX = 20;
-            this.velocidadY = 5;
+            this.velocidadY = 20;
+            this.gravity = 0.98;
             this.aceleracion = -9.8,
             this.imgGoku = new Image ();
             this.imgGoku.src = gokuSprite.src;
@@ -51,15 +58,20 @@ class Goku {
             }
         }
         moveLeft () {
-            this.x -= this.velocidadX; // falta margen
+            this.x -= this.velocidadX;
+            if (this.x < 0) {
+                this.x = canvas.width;
+              }
         }
         moveRight (){
-            this.x += this.velocidadX // falta margen
+            this.x += this.velocidadX;
+            if (this.x > canvas.width) {
+                this.x = 0;
+              }
         }
-  
-        salto() {
-            this.y -= this.velocidadY}
+        
     }
+
     class Platform {
         constructor (canvas) {
             this.platform = [
@@ -80,6 +92,8 @@ class Goku {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
             this.platform.forEach(pos => {
             ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h)
+            game.platforms.forEach((pos) => {
+                ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h);
             });
         }
         move () {
@@ -138,7 +152,7 @@ class Goku {
         }
     }
     class Game {
-        constructor () {
+        constructor (platforms) {
         this.canvas = document.getElementById("canvas");
         this.ctx = canvas.getContext("2d");
         this.backGround = new Image ();
@@ -166,15 +180,23 @@ class Goku {
                     this.iteration++;
                     cont++
                     this.clear();
+                    this.jump();
+                    this.gravity();
                     this.recalculate();
+                    this.gravity();
                     this.print();
-                }, 100) 
+                    this.stop();
+                }, 20) 
             }
-        
+            
         }
         stop () {
-            if(this.intervalId) clearInterval(this.intervalId)
-        }
+            if (this.goku.y > 750) {
+                clearInterval(this.intervalId) 
+                this.ctx.fillText('GAME OVER', 200, 300);
+            } 
+            };
+        
         clear () {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
@@ -187,43 +209,63 @@ class Goku {
 
             /* this.platformsMove.forEach(platformsMove => {
                 platformsMove.print(this.ctx);}) */ 
+            this.ctx.fillStyle = "black";
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(`Score: ${this.score}`, 10, 30);
+            this.platform.print(this.ctx);
+            this.goku.rebound(this.ctx);
+            this.goku.print(this.ctx);
+        }
+        Jump(){
+            let velocidadY = 0;
+            let gravity = 0.98;
+            let maxHeigth = 550;
+            if (this.goku.y >= maxHeigth) {
+                velocidadY =- velocidadY
+             }
+         }
+        gravity() {
+            let velocidadY = 0;
+            let gravity = 0.98;
+                velocidadY += gravity;
+                this.goku.y += velocidadY;
+            
         }
         recalculate() {
-            if(this.iteration == 60) {
-            let platform = new Platform(this.canvas);         
-            /* this.platformsMove.push(platform) */
-            /* this.iteration = 0; */
-            }
-    /*     this.platform.platform.forEach((platform) => {
-           this.goku.salto(); 
-            if(( this.goku.x + this.goku.w < platform.x_ini || 
-                this.goku.x > platform.x_ini + 160 || 
-                this.goku.y > platform.y_ini + 60 ||
-                this.goku.y + this.goku.heigth < platform.y_ini) ) {
-                  this.goku.y++;
-                } */
-       /*  }) */
+                 this.platforms.forEach((platform) => {
+/*                     if (this.goku.y < 200) {
+                        platform.y_ini += (this.goku.y -160)
+                    } */
+                    if (platform.y_ini > this.canvas.height) {
+                        platform.x_ini = Math.floor(Math.random() *390);
+                        platform.y_ini = -10;
+                    }
+                    if ((this.goku.y + this.goku.width > platform.x_ini || this.goku.width > platform.w + platform.y_ini)) {
+                        this.jump()
+
+                    }  
+                })   
+            } 
         }
+        let game = new Game(platforms);
+        document.getElementById('btn').onclick = () => {
+            startGame();
+        }
+        function startGame () {
+            game.start()
+        }
+        document.getElementsByTagName("body")[0].addEventListener ("keydown", (flecha) => {
+            switch(flecha.key) {
+                case "ArrowLeft" : 
+                game.goku.moveLeft()
+                //if(player.x < 0) player.x = 0;
+                break;
+                case "ArrowRight" : 
+                game.goku.moveRight()
+                //if(player.x > 430) player.x = 430;
+                break;
+                default:
+                break;
+                }
+        })
     }
-    let game = new Game();
-    document.getElementById('btn'). onclick = () => {
-        startGame();
-    }
-    function startGame () {
-        game.start()
-    }
-    document.getElementsByTagName("body")[0].addEventListener ("keydown", (flecha) => {
-        switch(flecha.key) {
-          case "ArrowLeft" : 
-          game.goku.moveLeft()
-          //if(player.x < 0) player.x = 0;
-          break;
-          case "ArrowRight" : 
-          game.goku.moveRight()
-          //if(player.x > 430) player.x = 430;
-          break;
-          default:
-            break;
-          }
-    })
-}
