@@ -1,37 +1,69 @@
+
 body {
     background-image: url("..//images/GokuFondoCanvas.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-}
-
-#title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  #title {
     background-size: cover;
     display: flex;
-    width: 400px;
-    margin-left: 10%;
+    width: 600px;
+    margin: 0 auto;
     margin-top: 50px;
-}
-
-ul {
+    text-align: center;
+  }
+  
+  #div-list {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  #list {
     font-weight: bold;
     list-style-type: none;
-    margin: 0;
-}
-#intro {
-    align-items: center ;
-}
-#arrows {
-    width: 5%;
-}
-#btn {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #list li {
+    display: flex;
+    align-items: center;
+  }
+  
+  #list li img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  #intro {
+    text-align: center;
+  }
+  
+  #arrows {
+    width: 200px;
+    margin-top: 20px;
+  }
+  
+  #btn {
     margin: 20px;
     font-size: 3em;
     width: 300px;
     height: 100px;
     border-radius: 5px;
-}
-/* #canvas {
-    border: 2px solid black;
-} */
+    display: inline-block;
+    
+  }
+
+  #canvas {
+    opacity: 70%;
+  }
+  

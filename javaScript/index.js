@@ -1,47 +1,16 @@
 window .onload = () => {
-            //60 x 90 tamaño 80 x 105;
-            let cont = 0;
-        let intervaloSalto = -2;
-        let intervaloBajo = 2;
-            const gokuSprite = {
-        posSprite: [{
-            x_ini: 5,
-            y_ini: 5,
-            w: 60,
-            h: 90
-        },
-        {
-            x_ini: 65,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 122,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 180,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 235,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {   
-            x_ini: 288,
-            y_ini: 5,
-            w: 65,
-            h: 99
-        }],
+    const gokuSprite = {
+        posSprite: [
+          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
+        ],
         src: "images/Sprites.png"
-    }
+
+    };
 class Goku {
     constructor () {
             this.x = 225;
@@ -228,4 +197,5 @@ class Goku {
     function startGame () {
         game.start()
     }
+    
 }
