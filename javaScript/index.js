@@ -63,7 +63,6 @@ class Goku {
               //ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
               //this.print(ctx)
             } else if ( cont > 25 ) {
-                console.log("sbais")
                 this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
                 //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
             }
@@ -175,7 +174,7 @@ class Goku {
                 this.intervalId = setInterval (() => {
                     gokuCount++
                     this.iteration++;
-                    // cont++
+                    cont++
                     this.clear();
                     this.recalculate();
                     this.print();
@@ -197,7 +196,7 @@ class Goku {
             this.platforms.forEach(platform => {
                 platform.print(this.ctx);})
             this.platformsMove.forEach(platformsMove => {
-                platformsMove.print(this.ctx);})
+                platformsMove.print(this.ctx);}) 
         }
         recalculate() {
             if(this.iteration == 60) {
