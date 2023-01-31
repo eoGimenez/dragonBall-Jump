@@ -66,7 +66,7 @@ class Goku {
                     //this.test2 = (this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
                     this.i = (this.i+1)%gokuSprite.posSprite.length;
                     console.log("test 200")
-                }, 100);
+                }, 200);
             }
         }
         moveLeft () {
@@ -93,11 +93,11 @@ class Goku {
         constructor (canvas) {
             this.width = 160;
             this.heigth = 60;
-            this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
-            this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
+            this.x = Math.floor(Math.random()*(200 /* canvas.width */ /* - this.width */));
+            this.y = Math.floor(Math.random()*(80 /* canvas.height *//*  - this.height */));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
-            this.velocidad = 100;
+            this.velocidad = 500;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
@@ -189,7 +189,7 @@ class Goku {
                     //this.ctx.drawImage(this.goku.test2)
                     console.log("test 20")
                     this.goku.print(this.ctx);
-                }, 100) 
+                }, 200) 
             }
         
         }
@@ -202,18 +202,18 @@ class Goku {
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
-            this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
+            this.ctx.drawImage(this.wallpaper, 0,  0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
-            this.platforms.forEach(platform => {
+          /*   this.platforms.forEach(platform => {
                 platform.print(this.ctx);})
             this.platformsMove.forEach(platformsMove => {
-                platformsMove.print(this.ctx);})
+                platformsMove.print(this.ctx);}) */
         }
         recalculate() {
             if(this.iteration == 60) {
-            let platform = new Platform(this.canvas);
+           /*  let platform = new Platform(this.canvas);
            /*  let platformMove = new PlatformMove(this.canvas) */
-            this.platforms.push(platform);
+           /*  this.platforms.push(platform); */ */
            /*  this.platformsMove.push(platform) */
             this.iteration = 0;
             }
