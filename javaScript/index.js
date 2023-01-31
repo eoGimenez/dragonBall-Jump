@@ -74,14 +74,6 @@ class Goku {
 
     class Platform {
         constructor (canvas) {
-            this.platform = [
-                { x_ini: 100, y_ini: 550, w: 160, h: 60},
-                { x_ini:  60, y_ini: 450, w: 160, h: 60},
-                { x_ini:  100, y_ini: 150, w: 160, h: 60},
-                { x_ini:  50, y_ini: 320, w: 160, h: 60}, 
-                { x_ini:  60, y_ini: 50, w: 160, h: 60},
-                
-            ],
             // this.x = Math.floor(Math.random()*(450/* canvas.width */ /* - this.width))
             // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
@@ -89,9 +81,6 @@ class Goku {
             this.velocidad = 50;
         }
         print (ctx) {
-            ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
-            this.platform.forEach(pos => {
-            ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h)
             game.platforms.forEach((pos) => {
                 ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h);
             });
@@ -165,12 +154,12 @@ class Goku {
         this.imageKinton = "images/kinton.png"
 /*         this.platformMove = new PlatformMove ();
         this.platformBreak = new PlatformBreak (); */
-        this.platforms = [];
+        this.platforms = platforms;
         this.obstacles = [];
         this.score = 0;
         this.intervalId = undefined;
         this.iteration = 0;
-        
+        this.verdadero = false;
         }
 
         start () {
@@ -181,7 +170,6 @@ class Goku {
                     cont++
                     this.clear();
                     this.jump();
-                    this.gravity();
                     this.recalculate();
                     this.gravity();
                     this.print();
@@ -203,32 +191,35 @@ class Goku {
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
             this.platform.print(this.ctx);
-            this.goku.rebound(this.ctx);
+            /* this.goku.rebound(this.ctx); */
             this.goku.print(this.ctx);
-           
-
+            this.platform.print(this.ctx)
             /* this.platformsMove.forEach(platformsMove => {
                 platformsMove.print(this.ctx);}) */ 
             this.ctx.fillStyle = "black";
             this.ctx.font = "20px Arial";
             this.ctx.fillText(`Score: ${this.score}`, 10, 30);
             this.platform.print(this.ctx);
-            this.goku.rebound(this.ctx);
+            /* this.goku.rebound(this.ctx); */
             this.goku.print(this.ctx);
         }
-        Jump(){
+        jump(){
             let velocidadY = 0;
             let gravity = 0.98;
             let maxHeigth = 550;
             if (this.goku.y >= maxHeigth) {
-                velocidadY =- velocidadY
+                velocidadY -= velocidadY
              }
          }
         gravity() {
-            let velocidadY = 0;
+           this.goku.y += 6
+        /*     let velocidadY = 0;
             let gravity = 0.98;
                 velocidadY += gravity;
-                this.goku.y += velocidadY;
+                this.goku.y += velocidadY;  */
+            this.platforms.forEach(platform => {
+                platform.y_ini +=2
+            })
             
         }
         recalculate() {
@@ -240,10 +231,14 @@ class Goku {
                         platform.x_ini = Math.floor(Math.random() *390);
                         platform.y_ini = -10;
                     }
-                    if ((this.goku.y + this.goku.width > platform.x_ini || this.goku.width > platform.w + platform.y_ini)) {
+                   /*  if ((this.goku.y + this.goku.width > platform.x_ini || this.goku.width > platform.w + platform.y_ini)) {
                         this.jump()
 
-                    }  
+                    }  */ 
+                if(this.goku.y == platform.y_ini || this.goku.x == platform.x_ini){
+                    console.log("hola")
+                    this.goku.y -= 60};
+                
                 })   
             } 
         }
