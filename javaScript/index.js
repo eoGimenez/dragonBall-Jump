@@ -9,7 +9,7 @@ window .onload = () => {
           { x_ini: 288, y_ini: 5, w: 65, h: 99 }
         ],
         src: "images/Sprites.png"
-
+        
     };
 class Goku {
     constructor () {
@@ -45,32 +45,43 @@ class Goku {
         moveRight (){
             this.x += this.velocidadX // falta margen
         }
-        rebound (ctx) {
-            // re ajustar a nuevas medidas canva,
-            if (cont < 25 || cont >54) {
-                this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
-              //  ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
-              //this.print(ctx)
-            } else if ( cont > 25 ) {
-                console.log("sbais")
-                this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
-                //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
-            }
-            if (cont >= 49) cont = 0;
-        }
+        // rebound (ctx) {
+        //     // re ajustar a nuevas medidas canva,
+        //     if (cont < 25 || cont >54) {
+        //         this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
+        //       //  ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
+        //       //this.print(ctx)
+        //     } else if ( cont > 25 ) {
+        //         console.log("sbais")
+        //         this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
+        //         //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
+        //     }
+        //     if (cont >= 49) cont = 0;
+        // }
     }
     class Platform {
         constructor (canvas) {
-            this.width = 160;
-            this.heigth = 60;
-            this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
-            this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
+            // this.width = 160;
+            // this.heigth = 60;
+            this.platform = [
+                { x_ini: 300, y_ini: 350, w: 160, h: 60},
+                { x_ini: 200, y_ini: 450, w: 160, h: 60},
+                { x_ini: 400, y_ini: 150, w: 160, h: 60},
+                { x_ini: 100, y_ini: 550, w: 160, h: 60}, 
+                { x_ini: 50, y_ini: 50, w: 160, h: 60},
+                
+            ],
+            // this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
+            // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
             this.velocidad = 50;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
+            this.platform.forEach(pos => {
+                ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h);
+            });
         }
         move () {
             this.y += this.velocidad
@@ -152,14 +163,14 @@ class Goku {
 
                 this.intervalId = setInterval (() => {
                     this.iteration++;
-                    cont++
+                    // cont++
                     this.clear();
                     this.recalculate();
                     this.print();
-                    this.goku.rebound(this.ctx);
+                    // this.goku.rebound(this.ctx);
                     //this.ctx.drawImage(this.goku.test2)
-                    console.log("test 20")
-                    this.goku.print(this.ctx);
+                    // console.log("test 20")
+                    // this.goku.print(this.ctx);
                 }, 20) 
             }
         
@@ -175,6 +186,7 @@ class Goku {
             //this.goku.print(this.ctx)
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
+
             this.platforms.forEach(platform => {
                 platform.print(this.ctx);})
             this.platformsMove.forEach(platformsMove => {
@@ -199,5 +211,4 @@ class Goku {
     function startGame () {
         game.start()
     }
-    
-}
+};
