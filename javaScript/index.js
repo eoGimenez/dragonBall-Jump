@@ -86,7 +86,7 @@ class Goku {
             this.width = 160;
             this.heigth = 60;
             this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
-            this.y = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
+            this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
             this.velocidad = 50;
@@ -188,6 +188,8 @@ class Goku {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         }
         print () {
+            this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
+            //this.goku.print(this.ctx)
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
             this.platforms.forEach(platform => {
