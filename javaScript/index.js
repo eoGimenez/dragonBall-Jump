@@ -89,7 +89,7 @@ class Goku {
             this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
-            this.velocidad = 50;
+            this.velocidad = 100;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
@@ -200,9 +200,9 @@ class Goku {
         recalculate() {
             if(this.iteration == 60) {
             let platform = new Platform(this.canvas);
-            let platformMove = new PlatformMove(this.canvas)
+           /*  let platformMove = new PlatformMove(this.canvas) */
             this.platforms.push(platform);
-            this.platformsMove.push(platform)
+           /*  this.platformsMove.push(platform) */
             this.iteration = 0;
             }
         }
