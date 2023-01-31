@@ -21,7 +21,7 @@ class Goku {
             this.y = 450;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
-            this.velocidadX = 10;
+            this.velocidadX = 20;
             this.velocidadY = 5;
             this.aceleracion = -9.8,
             this.imgGoku = new Image ();
@@ -179,7 +179,7 @@ class Goku {
                     this.print();
                     this.goku.rebound(this.ctx);
                     this.goku.print(this.ctx);
-                }, 20) 
+                }, 1000/60) 
             }
         
         }
@@ -213,11 +213,11 @@ class Goku {
     document.getElementsByTagName("body")[0].addEventListener ("keydown", (flecha) => {
         switch(flecha.key) {
           case "ArrowLeft" : 
-          this.goku.moveLeft()
+          game.goku.moveLeft()
           //if(player.x < 0) player.x = 0;
           break;
           case "ArrowRight" : 
-          this.goku.moveRight()
+          game.goku.moveRight()
           //if(player.x > 430) player.x = 430;
           break;
           default:
