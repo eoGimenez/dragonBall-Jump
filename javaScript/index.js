@@ -13,7 +13,7 @@ window .onload = () => {
           { x_ini: 288, y_ini: 5, w: 65, h: 99 }
         ],
         src: "images/Sprites.png"
-
+        
     };
 class Goku {
     constructor () {
@@ -72,16 +72,27 @@ class Goku {
     }
     class Platform {
         constructor (canvas) {
-            this.width = 160;
-            this.heigth = 60;
-            this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
-            this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
+            // this.width = 160;
+            // this.heigth = 60;
+            this.platform = [
+                { x_ini: 300, y_ini: 350, w: 160, h: 60},
+                { x_ini: 200, y_ini: 450, w: 160, h: 60},
+                { x_ini: 400, y_ini: 150, w: 160, h: 60},
+                { x_ini: 100, y_ini: 550, w: 160, h: 60}, 
+                { x_ini: 50, y_ini: 50, w: 160, h: 60},
+                
+            ],
+            // this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
+            // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
             this.velocidad = 50;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
+            this.platform.forEach(pos => {
+                ctx.drawImage(this.imgPlatform, pos.x_ini, pos.y_ini, pos.w, pos.h);
+            });
         }
         move () {
             this.y += this.velocidad
@@ -164,7 +175,7 @@ class Goku {
                 this.intervalId = setInterval (() => {
                     gokuCount++
                     this.iteration++;
-                    cont++
+                    // cont++
                     this.clear();
                     this.recalculate();
                     this.print();
