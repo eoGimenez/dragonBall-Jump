@@ -27,8 +27,9 @@ class Goku {
             this.y = 250;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
-            this.velocidadX = 25;
-            this.velocidadY = 5;
+            this.velocidadX = 20;
+            this.velocidadY = 20;
+            this.gravity = 0.98;
             this.aceleracion = -9.8,
             this.imgGoku = new Image ();
             this.imgGoku.src = gokuSprite.src;
@@ -57,22 +58,20 @@ class Goku {
             }
         }
         moveLeft () {
-            this.x -= this.velocidadX; // falta margen
+            this.x -= this.velocidadX;
+            if (this.x < 0) {
+                this.x = canvas.width;
+              }
         }
         moveRight (){
-            this.x += this.velocidadX // falta margen
+            this.x += this.velocidadX;
+            if (this.x > canvas.width) {
+                this.x = 0;
+              }
         }
-       // rebound (ctx) {
-            // re ajustar a nuevas medidas canva,
-
-/*              if (cont < 25 || cont >54) {
-                this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
-            } else if ( cont > 25 ) {
-                this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
-            }
-            if (cont >= 49) cont = 0; */ 
-        //}
+        
     }
+
     class Platform {
         constructor (canvas) {
             this.imgPlatform = new Image ();
@@ -167,6 +166,8 @@ class Goku {
                     this.iteration++;
                     cont++
                     this.clear();
+                    this.jump();
+                    this.gravity();
                     this.recalculate();
                     this.gravity();
                     this.print();
@@ -187,19 +188,27 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
+            this.ctx.fillStyle = "black";
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(`Score: ${this.score}`, 10, 30);
             this.platform.print(this.ctx);
-            //this.goku.rebound(this.ctx);
+            this.goku.rebound(this.ctx);
             this.goku.print(this.ctx);
-
-                }
-        jump () {
-            this.goku.y -= 5
-        } 
-        gravity () {
-            this.goku.y += 6
-            this.platforms.forEach(platform => {
-                platform.y_ini += 2
-            })
+        }
+        Jump(){
+            let velocidadY = 0;
+            let gravity = 0.98;
+            let maxHeigth = 550;
+            if (this.goku.y >= maxHeigth) {
+                velocidadY =- velocidadY
+             }
+         }
+        gravity() {
+            let velocidadY = 0;
+            let gravity = 0.98;
+                velocidadY += gravity;
+                this.goku.y += velocidadY;
+            
         }
         recalculate() {
                  this.platforms.forEach((platform) => {
