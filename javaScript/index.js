@@ -1,4 +1,8 @@
 window .onload = () => {
+    let gokuCount = 0;
+    let cont = 0;
+    let intervaloSalto = -120;
+    let intervaloBajo = 120
     const gokuSprite = {
         posSprite: [
           { x_ini: 5, y_ini: 5, w: 60, h: 90 },
@@ -14,7 +18,7 @@ window .onload = () => {
 class Goku {
     constructor () {
             this.x = 225;
-            this.y = 325;
+            this.y = 450;
             this.width = 80 //width;
             this.heigth = 105 //heigth;
             this.velocidadX = 10;
@@ -25,19 +29,26 @@ class Goku {
             this.jump= 60;
             this.i = 0;
             this.setIntervalGoku = undefined;
-            //this.test2 = undefined;
         }
+
         print (ctx) {
-            ctx.drawImage()
-            //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
-            /* if (this.setIntervalGoku == undefined) {
-                this.setIntervalGoku = setInterval(() => {
-                    ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth) */
-                    //this.test2 = (this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
-               /*      this.i = (this.i+1)%gokuSprite.posSprite.length;
-                    console.log("test 200")
-                }, 100); */
-            //}
+            // cuando hagamos control de coliciones, cuando toca para volver a saltar hay que reiniciar la animacion desde que toca,
+            if (gokuCount >= 0 && gokuCount <= 8) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[0].x_ini, gokuSprite.posSprite[0].y_ini, gokuSprite.posSprite[0].w, gokuSprite.posSprite[0].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount > 7 && gokuCount <= 14) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[1].x_ini, gokuSprite.posSprite[1].y_ini, gokuSprite.posSprite[1].w, gokuSprite.posSprite[1].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount > 14 && gokuCount <= 21) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[2].x_ini, gokuSprite.posSprite[2].y_ini, gokuSprite.posSprite[2].w, gokuSprite.posSprite[2].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount > 21 && gokuCount <= 28) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[3].x_ini, gokuSprite.posSprite[3].y_ini, gokuSprite.posSprite[3].w, gokuSprite.posSprite[3].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount > 28 && gokuCount <= 35) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[4].x_ini, gokuSprite.posSprite[4].y_ini, gokuSprite.posSprite[4].w, gokuSprite.posSprite[4].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount > 35 && gokuCount <= 41) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[5].x_ini, gokuSprite.posSprite[5].y_ini, gokuSprite.posSprite[5].w, gokuSprite.posSprite[5].h, this.x, this.y, this.width, this.heigth);
+            } else if (gokuCount = 42) {
+                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[5].x_ini, gokuSprite.posSprite[5].y_ini, gokuSprite.posSprite[5].w, gokuSprite.posSprite[5].h, this.x, this.y, this.width, this.heigth);
+                gokuCount = 0;
+            }
         }
         moveLeft () {
             this.x -= this.velocidadX; // falta margen
@@ -47,16 +58,16 @@ class Goku {
         }
         rebound (ctx) {
             // re ajustar a nuevas medidas canva,
-            if (cont < 25 || cont >54) {
+             if (cont < 25 || cont >54) {
                 this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
-              //  ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
+              //ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
               //this.print(ctx)
             } else if ( cont > 25 ) {
                 console.log("sbais")
                 this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
                 //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
             }
-            if (cont >= 49) cont = 0;
+            if (cont >= 49) cont = 0; 
         }
     }
     class Platform {
@@ -145,20 +156,19 @@ class Goku {
         this.score = 0;
         this.intervalId = undefined;
         this.iteration = 0;
+        
         }
 
         start () {
             if(this.intervalId == undefined) {
-
                 this.intervalId = setInterval (() => {
+                    gokuCount++
                     this.iteration++;
                     cont++
                     this.clear();
                     this.recalculate();
                     this.print();
                     this.goku.rebound(this.ctx);
-                    //this.ctx.drawImage(this.goku.test2)
-                    console.log("test 20")
                     this.goku.print(this.ctx);
                 }, 20) 
             }
@@ -172,9 +182,7 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            //this.goku.print(this.ctx)
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            //this.goku.print(this.ctx)
             this.platforms.forEach(platform => {
                 platform.print(this.ctx);})
             this.platformsMove.forEach(platformsMove => {
@@ -189,9 +197,7 @@ class Goku {
             this.iteration = 0;
             }
         }
-     
     }
-
     let game = new Game();
     document.getElementById('btn').onclick = () => {
         startGame();
@@ -199,5 +205,18 @@ class Goku {
     function startGame () {
         game.start()
     }
-    
+    document.getElementsByTagName("body")[0].addEventListener ("keydown", (flecha) => {
+        switch(flecha.key) {
+          case "ArrowLeft" : 
+          this.goku.moveLeft()
+          //if(player.x < 0) player.x = 0;
+          break;
+          case "ArrowRight" : 
+          this.goku.moveRight()
+          //if(player.x > 430) player.x = 430;
+          break;
+          default:
+            break;
+          }
+    })
 }
