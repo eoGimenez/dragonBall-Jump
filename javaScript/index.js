@@ -22,7 +22,8 @@ class Goku {
             this.width = 80 //width;
             this.heigth = 105 //heigth;
             this.velocidadX = 20;
-            this.velocidadY = 5;
+            this.velocidadY = 20;
+            this.gravity = 0.98;
             this.aceleracion = -9.8,
             this.imgGoku = new Image ();
             this.imgGoku.src = gokuSprite.src;
@@ -51,25 +52,20 @@ class Goku {
             }
         }
         moveLeft () {
-            this.x -= this.velocidadX; // falta margen
+            this.x -= this.velocidadX;
+            if (this.x < 0) {
+                this.x = canvas.width;
+              }
         }
         moveRight (){
-            this.x += this.velocidadX // falta margen
+            this.x += this.velocidadX;
+            if (this.x > canvas.width) {
+                this.x = 0;
+              }
         }
-        rebound (ctx) {
-            // re ajustar a nuevas medidas canva,
-             if (cont < 25 || cont >54) {
-                this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
-              //ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
-              //this.print(ctx)
-            } else if ( cont > 25 ) {
-                console.log("sbais")
-                this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
-                //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
-            }
-            if (cont >= 49) cont = 0; 
-        }
+        
     }
+
     class Platform {
         constructor (canvas) {
             this.platform = [
@@ -80,8 +76,6 @@ class Goku {
                 { x_ini: 30, y_ini: 50, w: 160, h: 60},
                 
             ],
-            // this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
-            // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
             this.velocidad = 50;
@@ -175,11 +169,11 @@ class Goku {
                     this.iteration++;
                     cont++
                     this.clear();
+                    this.jump();
+                    this.gravity();
                     this.recalculate();
                     this.print();
-                    this.goku.rebound(this.ctx);
-                    this.goku.print(this.ctx);
-                }, 1000/60) 
+                }, 35) 
             }
         
         }
@@ -191,8 +185,27 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            this.platformsMove.forEach(platformsMove => {
-                platformsMove.print(this.ctx);})
+            this.ctx.fillStyle = "black";
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(`Score: ${this.score}`, 10, 30);
+            this.platform.print(this.ctx);
+            this.goku.rebound(this.ctx);
+            this.goku.print(this.ctx);
+        }
+        Jump(){
+            let velocidadY = 0;
+            let gravity = 0.98;
+            let maxHeigth = 550;
+            if (this.goku.y >= maxHeigth) {
+                velocidadY =- velocidadY
+             }
+         }
+        gravity() {
+            let velocidadY = 0;
+            let gravity = 0.98;
+                velocidadY += gravity;
+                this.goku.y += velocidadY;
+            
         }
         recalculate() {
             if(this.iteration == 60) {
@@ -200,8 +213,10 @@ class Goku {
             let platformMove = new PlatformMove(this.canvas)
             this.platformsMove.push(platform)
             this.iteration = 0;
+            
             }
         }
+        
     }
     let game = new Game();
     document.getElementById('btn').onclick = () => {
