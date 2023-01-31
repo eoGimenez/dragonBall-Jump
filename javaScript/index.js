@@ -72,14 +72,12 @@ class Goku {
     }
     class Platform {
         constructor (canvas) {
-            // this.width = 160;
-            // this.heigth = 60;
             this.platform = [
-                { x_ini: 300, y_ini: 350, w: 160, h: 60},
+                { x_ini: 300, y_ini: 50, w: 160, h: 60},
                 { x_ini: 200, y_ini: 450, w: 160, h: 60},
-                { x_ini: 400, y_ini: 150, w: 160, h: 60},
-                { x_ini: 100, y_ini: 550, w: 160, h: 60}, 
-                { x_ini: 50, y_ini: 50, w: 160, h: 60},
+                { x_ini: 350, y_ini: 150, w: 160, h: 60},
+                { x_ini: 100, y_ini: 320, w: 160, h: 60}, 
+                { x_ini: 30, y_ini: 50, w: 160, h: 60},
                 
             ],
             // this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
@@ -128,7 +126,7 @@ class Goku {
         print (ctx) {
             ctx.drawImage(this.imgPlatformBreak, this.x, this.y, this.width, this.heigth)
         }
-        /*    BONUS     break (ctx) {
+        /* g   BONUS     break (ctx) {
             ctx.drawImage(this.imgPlatformBreaking, this.x, this.y, this.width, this.heigth)
             BONUS
             BONUS
@@ -156,7 +154,7 @@ class Goku {
         this.backGround = new Image ();
         this.backGround.src = "";
         this.wallpaper = new Image ();
-        this.wallpaper.src = "images/wallpaper.png";
+        this.wallpaper.src = "images/wallpaper.jpeg";
         this.goku = new Goku ();
         this.platform = new Platform ();
         this.platformMove = new PlatformMove ();
@@ -175,7 +173,7 @@ class Goku {
                 this.intervalId = setInterval (() => {
                     gokuCount++
                     this.iteration++;
-                    // cont++
+                    cont++
                     this.clear();
                     this.recalculate();
                     this.print();
@@ -193,9 +191,6 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            this.platforms.forEach(platform => {
-                platform.print(this.ctx);})
             this.platformsMove.forEach(platformsMove => {
                 platformsMove.print(this.ctx);})
         }
@@ -203,7 +198,6 @@ class Goku {
             if(this.iteration == 60) {
             let platform = new Platform(this.canvas);
             let platformMove = new PlatformMove(this.canvas)
-            this.platforms.push(platform);
             this.platformsMove.push(platform)
             this.iteration = 0;
             }
