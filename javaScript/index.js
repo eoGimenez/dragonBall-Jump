@@ -106,7 +106,7 @@ class Goku {
             this.imgPlatformMove = new Image ();
             this.imgPlatformMove.src = "images/kinton.png";
             this.velocidadX = 20;
-        /*     this.velocidadY = 10; */
+            this.velocidadY = 10;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatformMove, this.x, this.y, this.width, this.heigth)
@@ -200,7 +200,7 @@ class Goku {
             let platform = new Platform(this.canvas);
             let platformMove = new PlatformMove(this.canvas)
             this.platforms.push(platform);
-            this.platformsMove.push(platformMove)
+            this.platformsMove.push(platform)
             this.iteration = 0;
             }
         }
