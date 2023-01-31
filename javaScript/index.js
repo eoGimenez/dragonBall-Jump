@@ -1,5 +1,8 @@
 window .onload = () => {
             //60 x 90 tamaño 80 x 105;
+            let cont = 0;
+        let intervaloSalto = -2;
+        let intervaloBajo = 2;
             const gokuSprite = {
         posSprite: [{
             x_ini: 5,
@@ -46,21 +49,25 @@ class Goku {
             this.width = 80 //width;
             this.heigth = 105 //heigth;
             this.velocidadX = 10;
-            this.velocidadY = 20;
+            this.velocidadY = 5;
+            this.aceleracion = -9.8,
             this.imgGoku = new Image ();
             this.imgGoku.src = gokuSprite.src;
             this.jump= 60;
             this.i = 0;
-            //this.test = this.print();
+            this.setIntervalGoku = undefined;
+            //this.test2 = undefined;
         }
         print (ctx) {
             //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
-
-            setInterval(() => {
-                ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
-                this.i = (this.i+1)%gokuSprite.posSprite.length;
-                
-            }, 200);
+            if (this.setIntervalGoku == undefined) {
+                this.setIntervalGoku = setInterval(() => {
+                    ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
+                    //this.test2 = (this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
+                    this.i = (this.i+1)%gokuSprite.posSprite.length;
+                    console.log("test 200")
+                }, 100);
+            }
         }
         moveLeft () {
             this.x -= this.velocidadX; // falta margen
@@ -71,12 +78,13 @@ class Goku {
         rebound (ctx) {
             // re ajustar a nuevas medidas canva,
             if (cont < 25 || cont >54) {
-                test.y = test.y + (test.velocidadY * intervaloSalto) + ( (test.aceleracion*intervaloSalto) /2)
-                ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku subiendo
+                this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
+              //  ctx.fillRect(this.x, this.y, this.width, test.heigth) // imprimir goku subiendo
+              //this.print(ctx)
             } else if ( cont > 25 ) {
                 console.log("sbais")
-                test.y = test.y + (test.velocidadY * intervaloBajo) + ( (test.aceleracion*intervaloBajo) /2)
-                ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
+                this.y = this.y + (this.velocidadY * intervaloBajo) + ( (this.aceleracion*intervaloBajo) /2)
+                //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
             }
             if (cont >= 49) cont = 0;
         }
@@ -171,13 +179,17 @@ class Goku {
 
         start () {
             if(this.intervalId == undefined) {
-             this.intervalId = setInterval (() => {
-                this.iteration++;
-                this.clear();
-                this.recalculate();
-                this.print();
-                this.goku.test
-             }, 20) 
+                this.intervalId = setInterval (() => {
+                    this.iteration++;
+                    cont++
+                    this.clear();
+                    this.recalculate();
+                    this.print();
+                    this.goku.rebound(this.ctx);
+                    //this.ctx.drawImage(this.goku.test2)
+                    console.log("test 20")
+                    this.goku.print(this.ctx);
+                }, 100) 
             }
         
         }
