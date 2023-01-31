@@ -85,7 +85,7 @@ class Goku {
             // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
-            this.velocidad = 500;
+            this.velocidad = 50;
         }
         print (ctx) {
             ctx.drawImage(this.imgPlatform, this.x, this.y, this.width, this.heigth)
@@ -205,22 +205,21 @@ class Goku {
         }
         print () {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
-            this.platforms.forEach(platform => {
+        /*  this.platforms.forEach(platform => {
+                platform.print(this.ctx);}) */
+            /* this.platforms.forEach(platform => { */
             //this.goku.print(this.ctx)
-            this.ctx.drawImage(this.wallpaper, 0,  0, this.canvas.width, this.canvas.height)
-            this.ctx.drawImage(this.platform, 0, 0, this.canvas.width, this.canvas.height)
+           /*  this.ctx.drawImage(this.platform, 0, 0, this.canvas.width, this.canvas.height) */
             //this.goku.print(this.ctx)
-          /*   this.platforms.forEach(platform => {
-                platform.print(this.ctx);})
-            this.platformsMove.forEach(platformsMove => {
-                platformsMove.print(this.ctx);}) 
+           
+           /*  this.platformsMove.forEach(platformsMove => {
+                platformsMove.print(this.ctx);})  */
         }
         recalculate() {
             if(this.iteration == 60) {
             let platform = new Platform(this.canvas)
            /*  let platformMove = new PlatformMove(this.canvas) */
-           this.platforms.push(platform);
+           /* this.platforms.push(platform); */
            /*  this.platformsMove.push(platform) */
             this.iteration = 0;
             }
