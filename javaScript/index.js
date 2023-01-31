@@ -56,7 +56,7 @@ class Goku {
         moveRight (){
             this.x += this.velocidadX // falta margen
         }
-   /*      rebound (ctx) {
+        rebound (ctx) {
             // re ajustar a nuevas medidas canva,
              if (cont < 25 || cont >54) {
                 this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
@@ -82,7 +82,7 @@ class Goku {
                 { x_ini: 50, y_ini: 50, w: 160, h: 60},
                 
             ],
-            // this.x = Math.floor(Math.random()*(450/* canvas.width */ - this.width));
+            // this.x = Math.floor(Math.random()*(450/* canvas.width */ /* - this.width))
             // this.y = Math.floor(Math.random()*(450/* canvas.height */ - this.height));
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
@@ -195,7 +195,7 @@ class Goku {
                     //this.ctx.drawImage(this.goku.test2)
                     /* console.log("test 20") */
                     /* this.goku.print(this.ctx); */
-                }, 100) 
+              /*   }, 100)  */
             }
         
         }
