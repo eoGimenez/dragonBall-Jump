@@ -38,8 +38,8 @@ class Goku {
                     console.log("test 200")
                 }, 100); */
             //}
-                }, 200);
-            }
+            /*     }, 200); */
+            /* } */
         }
         moveLeft () {
             this.x -= this.velocidadX; // falta margen
@@ -47,7 +47,7 @@ class Goku {
         moveRight (){
             this.x += this.velocidadX // falta margen
         }
-        rebound (ctx) {
+   /*      rebound (ctx) {
             // re ajustar a nuevas medidas canva,
             if (cont < 25 || cont >54) {
                 this.y = this.y + (this.velocidadY * intervaloSalto) + ( (this.aceleracion*intervaloSalto) /2)
@@ -59,14 +59,14 @@ class Goku {
                 //this.print(ctx)//ctx.fillRect(test.x, test.y, test.width, test.heigth) // imprimir goku bajando
             }
             if (cont >= 49) cont = 0;
-        }
+        } */
     }
     class Platform {
         constructor (canvas) {
             this.width = 160;
             this.heigth = 60;
-            this.x = Math.floor(Math.random()*(200 /* canvas.width */ /* - this.width */));
-            this.y = Math.floor(Math.random()*(80 /* canvas.height *//*  - this.height */));
+            this.x = 150/*  Math.floor(Math.random()*(450 /* canvas.width */ /* - this.width *//* )) */
+            this.y = 200 /* Math.floor(Math.random()*(80 /* canvas.height *//*  - this.height *//* ))*/ 
             this.imgPlatform = new Image ();
             this.imgPlatform.src = "images/kinton.png";
             this.velocidad = 500;
@@ -139,10 +139,18 @@ class Goku {
         this.wallpaper.src = "images/wallpaper.png";
         this.goku = new Goku ();
         this.platform = new Platform ();
-        this.platformMove = new PlatformMove ();
-        this.platformBreak = new PlatformBreak ();
+        this.imageKinton = new Image ()
+        this.imageKinton = "images/kinton.png"
+/*         this.platformMove = new PlatformMove ();
+        this.platformBreak = new PlatformBreak (); */
         this.platforms = [];
-        this.platformsMove= [];
+       /*      x_ini: Math.floor(Math.random()*(290)), y_ini: 200, w: 160, h: 60]; */
+     /*        { x_ini: 50, y_ini: 5, w: 60, h: 65 },
+            { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+            { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+            { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+            { x_ini: 288, y_ini: 5, w: 65, h: 99 }, */
+       /*  this.platformsMove= []; */
         this.obstacles = [];
         this.score = 0;
         this.intervalId = undefined;
@@ -154,14 +162,14 @@ class Goku {
 
                 this.intervalId = setInterval (() => {
                     this.iteration++;
-                    cont++
+                    /* cont++ */
                     this.clear();
                     this.recalculate();
                     this.print();
-                    this.goku.rebound(this.ctx);
+                    /* this.goku.rebound(this.ctx); */
                     //this.ctx.drawImage(this.goku.test2)
-                    console.log("test 20")
-                    this.goku.print(this.ctx);
+                    /* console.log("test 20") */
+                    /* this.goku.print(this.ctx); */
                 }, 100) 
             }
         
@@ -176,6 +184,7 @@ class Goku {
             this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
             this.ctx.drawImage(this.wallpaper, 0,  0, this.canvas.width, this.canvas.height)
+            this.ctx.drawImage(this.platform, 0, 0, this.canvas.width, this.canvas.height)
             //this.goku.print(this.ctx)
           /*   this.platforms.forEach(platform => {
                 platform.print(this.ctx);})
@@ -184,9 +193,9 @@ class Goku {
         }
         recalculate() {
             if(this.iteration == 60) {
-           /*  let platform = new Platform(this.canvas);
+            let platform = new Platform(this.canvas)
            /*  let platformMove = new PlatformMove(this.canvas) */
-           /*  this.platforms.push(platform); */ */
+           this.platforms.push(platform);
            /*  this.platformsMove.push(platform) */
             this.iteration = 0;
             }
