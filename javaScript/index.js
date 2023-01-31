@@ -1,47 +1,16 @@
 window .onload = () => {
-            //60 x 90 tamaño 80 x 105;
-            let cont = 0;
-        let intervaloSalto = -2;
-        let intervaloBajo = 2;
-            const gokuSprite = {
-        posSprite: [{
-            x_ini: 5,
-            y_ini: 5,
-            w: 60,
-            h: 90
-        },
-        {
-            x_ini: 65,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 122,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 180,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {
-            x_ini: 235,
-            y_ini: 5,
-            w: 60,
-            h: 65
-        },
-        {   
-            x_ini: 288,
-            y_ini: 5,
-            w: 65,
-            h: 99
-        }],
+    const gokuSprite = {
+        posSprite: [
+          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
+        ],
         src: "images/Sprites.png"
-    }
+
+    };
 class Goku {
     constructor () {
             this.x = 225;
@@ -59,13 +28,16 @@ class Goku {
             //this.test2 = undefined;
         }
         print (ctx) {
+            ctx.drawImage()
             //ctx.drawImage(this.imgGoku, this.x, this.y, this.width, this.heigth)
-            if (this.setIntervalGoku == undefined) {
+            /* if (this.setIntervalGoku == undefined) {
                 this.setIntervalGoku = setInterval(() => {
-                    ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
+                    ctx.drawImage(this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth) */
                     //this.test2 = (this.imgGoku, gokuSprite.posSprite[this.i].x_ini, gokuSprite.posSprite[this.i].y_ini, gokuSprite.posSprite[this.i].w, gokuSprite.posSprite[this.i].h, this.x, this.y, this.width, this.heigth)
-                    this.i = (this.i+1)%gokuSprite.posSprite.length;
+               /*      this.i = (this.i+1)%gokuSprite.posSprite.length;
                     console.log("test 200")
+                }, 100); */
+            //}
                 }, 200);
             }
         }
@@ -179,6 +151,7 @@ class Goku {
 
         start () {
             if(this.intervalId == undefined) {
+
                 this.intervalId = setInterval (() => {
                     this.iteration++;
                     cont++
@@ -189,7 +162,7 @@ class Goku {
                     //this.ctx.drawImage(this.goku.test2)
                     console.log("test 20")
                     this.goku.print(this.ctx);
-                }, 200) 
+                }, 100) 
             }
         
         }
@@ -228,4 +201,5 @@ class Goku {
     function startGame () {
         game.start()
     }
+    
 }

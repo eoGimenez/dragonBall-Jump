@@ -10,21 +10,34 @@
 <body> 
     <div id = "intro">
         <img id = "title" src = "images/Title.png" alt = "Game title"></img>
-        <div>
-            <ul>
-                <li>Tu objetivo: !Alcanzar la mayor altura posible! </li><br>
-                <!-- <li>Intenta abatir al mayor número de enemigos</li> -->
-                <li>Intenta no ser abatido</li><br>
-                <li>Para ello... Emplea tus flechas direccionales</li>
-                <img id = "arrows" src = "images/arrows.png" alt = "Arrow"></img>
-            </ul>
-        </div>
-        <button id = "btn">Start</button>
-        <button id = "btn">Settings</button>
+        <div id="div-list">
+          <ul id="list">
+            <li>
+              <img src="images/Bola 1.png" alt="icon1"> Tu objetivo: !Alcanzar la mayor altura posible!        
+            </li>
+            <br>
+            <li>
+              <img src="images/Bola2.png" alt="icon2"> Intenta abatir al mayor número de enemigos      
+            </li>       
+            <br>
+            <li>    
+              <img src="images/Bola3.png" alt="icon3"> No caigas al vacío      
+            </li>        
+            <br>          
+            <li>
+              <img src="images/Bola4.png" alt="icon4"> Para ello... Emplea tus flechas direccionales
+            </li>        
+          </ul>
+          <div>
+            <img id = "arrows" src = "images/arrows.png" alt = "Arrow"></img>
+          </div>       
+          </div>
+        <button id = "btn">START</button>
+        <button id = "btn">SETTINGS</button>
     </div>
 
     <div id="gameBoard">
-        <canvas id="canvas" width="450" height="450"></canvas>
+        <canvas id="canvas" width="650" height="950"></canvas>
     </div>
     <script src="javaScript/index.js"></script>
 </body>
