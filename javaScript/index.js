@@ -254,36 +254,19 @@ window .onload = () => {
             } 
         } */
         recalculate() {
-            
-            for (let i = 0; i < platforms; i++) {
-                let platforms = platforms[i];
-                if (this.x + this.width >= platforms.x_ini && this.x <= platforms.x_ini + platforms.w &&
-                    this.y + this.heigth >= platforms.y_ini && this.y <= platforms.y_ini + platforms.h) {
-                    this.y = platforms.y_ini - this.heigth;
-                    this.aceleracion = 0;
+            this.platforms.forEach((platform) => {
+                if (platform.y_ini > this.canvas.height) {
+                    platform.x_ini = Math.floor(Math.random() *390);
+                    platform.y_ini = -10;
                 }
-                platforms.forEach(platform => {
-                    if (this.x + this.width > platforms.x_ini && this.x < platforms.x_ini + platforms.w && this.y + this.heigth > platforms.y_ini && this.y < platform.y_ini + platform.h) {
-                      this.velocidadY = 0;
-                      this.y = platforms.y_ini - this.heigth;
-                    }
-                    /* let checkDistance = function (gokuX, gokuY, platformX, platformY) {
-                        result = Math.sqrt(Math.pow(gokuX - gokuY, -2) + Math.pow(platformX - platformY, -2));
-                        return result;
-                    }
-                    console.log(result)
-                    if (checkDistance(this.goku.x, this.goku.y, platform.x_ini, platform.y_ini) < (this.goku.y + platform.y_ini) ) {
-                        this.jumpTest = true
-                        this.jump();
-                        console.log(this.jumpTest) 
-                    }*/
-                    if  (!((this.goku.x + this.goku.width) -20 < platform.x_ini +10 || this.goku.x -10 > platform.x_ini + platform.w -50 || (this.goku.y + this.goku.heigth) -10 < platform.y_ini +20 || this.goku.y -10 > platform.h + platform.y_ini -25)) {
+                if  (!((this.goku.x + this.goku.width) -20 < platform.x_ini +10 || this.goku.x -10 > platform.x_ini + platform.w -50 || (this.goku.y + this.goku.heigth) -10 < platform.y_ini +20 || this.goku.y -10 > platform.h + platform.y_ini -25)) {
                     //(platform.x_ini + platform.w < this.goku.heigth + this.goku.x) { 
                         this.jumpT = true;
                         gokuCount = 6;
                         console.log(this.jumpT)
                     }
-                    if (this.jumpT == true) {
+                    
+                if (this.jumpT == true) {
                         this.platforms[0].y_ini += 1;
                         this.platforms[1].y_ini += 1;
                         this.platforms[2].y_ini += 1;
@@ -294,11 +277,12 @@ window .onload = () => {
                        // this.goku.y -= 100
                         if (this.goku.y < 60) this.goku.y = 60;
                         //this.jumpT = false
-                    }
+                    }    
+                    
                 })
             } 
         }
-    }
+    
         let game = new Game(platforms);
         document.getElementById('btn').onclick = () => {
             startGame();
@@ -320,4 +304,4 @@ window .onload = () => {
                 break;
                 }
         })
-}
+    }
