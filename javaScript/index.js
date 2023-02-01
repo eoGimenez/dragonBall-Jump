@@ -1,41 +1,43 @@
 window.onload = () => {
-  let gameActive = false;
-  let gokuCount = 0;
-  const gokuSprite = {
-    posSprite: [
-      { x_ini: 5, y_ini: 5, w: 60, h: 90 },
-      { x_ini: 65, y_ini: 5, w: 60, h: 65 },
-      { x_ini: 122, y_ini: 5, w: 60, h: 65 },
-      { x_ini: 180, y_ini: 5, w: 60, h: 65 },
-      { x_ini: 235, y_ini: 5, w: 60, h: 65 },
-      { x_ini: 288, y_ini: 5, w: 65, h: 99 },
-    ],
-    src: "images/Sprites.png",
-  };
-  let platforms = [
-    { x_ini: 300, y_ini: 350, w: 160, h: 60 },
-    { x_ini: 200, y_ini: 450, w: 160, h: 60 },
-    { x_ini: 400, y_ini: 140, w: 160, h: 60 },
-    { x_ini: 100, y_ini: 600, w: 160, h: 60 },
-    //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
-    { x_ini: 200, y_ini: 40, w: 160, h: 60 },
-  ];
-  class Goku {
-    constructor() {
-      this.x = 140;
-      this.y = 380;
-      this.width = 80; //width;
-      this.heigth = 105; //heigth;
-      this.velocidadX = 20;
-      this.velocidadY = 20;
-      this.gravity = 0.98;
-      this.aceleracion = -9.8;
-      this.imgGoku = new Image();
-      this.imgGoku.src = gokuSprite.src;
-      this.jump = 60;
-      this.i = 0;
-      this.setIntervalGoku = undefined;
-    }
+    let gameActive = false;
+    let gokuCount = 0;
+       const gokuSprite = {
+        posSprite: [
+          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
+        ],
+        src: "images/Sprites.png"
+    };    
+    let platforms = [
+            { x_ini: 300, y_ini: 350, w: 160, h: 60},
+            { x_ini: 200, y_ini: 450, w: 160, h: 60},
+            { x_ini: 400, y_ini: 140, w: 160, h: 60},
+            { x_ini: 100, y_ini: 600, w: 160, h: 60}, 
+            //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
+            { x_ini: 200, y_ini: 40, w: 160, h: 60}
+        ];
+   /*  let obstacles = [
+            { x_ini: 300, y_ini: 350, w: 260, h: 70},] */
+class Goku {
+    constructor () {
+            this.x = 140;
+            this.y = 380;
+            this.width = 80 //width;
+            this.heigth = 105 //heigth;
+            this.velocidadX = 20;
+            this.velocidadY = 20;
+            this.gravity = 0.98;
+            this.aceleracion = -9.8,
+            this.imgGoku = new Image ();
+            this.imgGoku.src = gokuSprite.src;
+            this.jump= 60;
+            this.i = 0;
+            this.setIntervalGoku = undefined;
+        }
 
     print(ctx) {
       // cuando hagamos control de coliciones, cuando toca para volver a saltar hay que reiniciar la animacion desde que toca,
@@ -167,6 +169,7 @@ window.onload = () => {
       this.intervalId = undefined;
       this.iteration = 0;
       this.jumpT = false;
+      this.colition = false;
     }
     start() {
       if (this.intervalId == undefined) {
@@ -184,7 +187,7 @@ window.onload = () => {
       }
     }
     stop() {
-      if (this.goku.y > 750) {
+      if (this.goku.y > 750|| this.colition == true) {
         gameActive = false;
         console.log(gameActive);
         clearInterval(this.intervalId);
@@ -214,8 +217,10 @@ window.onload = () => {
       this.goku.print(this.ctx);
       if (this.score >= 2500 && this.score <= 7500) {
         this.platformMove.print(this.ctx);
+        this.obstacle.print(this.ctx)
       }
     }
+
     gravity() {
       this.goku.y += 8;
     }
@@ -232,7 +237,8 @@ window.onload = () => {
         this.jumpT = false;
       }
     }
-    /* bolaDragon () {
+
+      /* bolaDragon () {
             if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
                 this.goku.y -=100;
             } else if (this.jumpT == true && this.iteration >= 21 && this.iteration <=40) {
@@ -263,6 +269,11 @@ window.onload = () => {
                 this.iteration = 0;
                 gokuCount = 6;
               }
+
+             /*  if(!(this.goku.x + this.goku.width < this.obstacle.x || this.goku.x > this.obstacle.x + this.obstacle.width || this.goku.y > this.obstacle.y + this.obstacle.heigth || this.goku.y + this.goku.heigth < this.obstacle.y)) {
+                console.log("eiii")
+                this.colition = true
+            } */
               if (this.jumpT == true) {
                 this.platforms[0].y_ini += 1;
                 this.platforms[1].y_ini += 1;
@@ -276,6 +287,7 @@ window.onload = () => {
                 if (this.goku.y < 60) this.goku.y = 60;
               }
             });
+       
         }
     }
     
