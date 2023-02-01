@@ -134,20 +134,22 @@ class Goku {
         } */
   }
   class Obstacle {
-    constructor(canvas) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.heigth = heigth;
-      this.velocidadX = velocidadX;
-      this.imgObstacle = new Image();
-      this.imgObstacle.src = "";
-      //this.velocidadY = velocidadY; BONUS
+    constructor (canvas) {
+        this.x = Math.floor(Math.random() * 350);
+        this.y = -10;
+        this.width = 100;
+        this.heigth = 80; 
+        /* this.velocidadX = velocidadX; */
+        this.imgObstacle = new Image ();
+        this.imgObstacle.src = "images/cabeza.png";
+        //this.velocidadY = velocidadY; BONUS
     }
-    print() {
-      ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.height);
-    }
-  }
+    print(ctx){
+        
+            ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.heigth);
+        };
+    
+}
   class Game {
     constructor(platforms) {
       this.canvas = document.getElementById("canvas");
