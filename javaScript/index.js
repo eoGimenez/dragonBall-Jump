@@ -1,4 +1,5 @@
 window.onload = () => {
+  let gameActive = false;
   let gokuCount = 0;
   const gokuSprite = {
     posSprite: [
@@ -28,7 +29,8 @@ window.onload = () => {
       this.velocidadX = 20;
       this.velocidadY = 20;
       this.gravity = 0.98;
-      (this.aceleracion = -9.8), (this.imgGoku = new Image());
+      this.aceleracion = -9.8;
+      this.imgGoku = new Image();
       this.imgGoku.src = gokuSprite.src;
       this.jump = 60;
       this.i = 0;
@@ -38,89 +40,26 @@ window.onload = () => {
     print(ctx) {
       // cuando hagamos control de coliciones, cuando toca para volver a saltar hay que reiniciar la animacion desde que toca,
       if (gokuCount >= 0 && gokuCount <= 8) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[0].x_ini,
-          gokuSprite.posSprite[0].y_ini,
-          gokuSprite.posSprite[0].w,
-          gokuSprite.posSprite[0].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage(this.imgGoku, gokuSprite.posSprite[0].x_ini, gokuSprite.posSprite[0].y_ini, gokuSprite.posSprite[0].w, 
+        gokuSprite.posSprite[0].h, this.x, this.y, this.width, this.heigth);
       } else if (gokuCount > 7 && gokuCount <= 14) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[1].x_ini,
-          gokuSprite.posSprite[1].y_ini,
-          gokuSprite.posSprite[1].w,
-          gokuSprite.posSprite[1].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage(this.imgGoku, gokuSprite.posSprite[1].x_ini, gokuSprite.posSprite[1].y_ini, gokuSprite.posSprite[1].w,
+          gokuSprite.posSprite[1].h, this.x, this.y, this.width,  this.heigth);
       } else if (gokuCount > 14 && gokuCount <= 21) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[2].x_ini,
-          gokuSprite.posSprite[2].y_ini,
-          gokuSprite.posSprite[2].w,
-          gokuSprite.posSprite[2].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage(this.imgGoku, gokuSprite.posSprite[2].x_ini, gokuSprite.posSprite[2].y_ini, gokuSprite.posSprite[2].w,
+          gokuSprite.posSprite[2].h, this.x, this.y, this.width, this.heigth);
       } else if (gokuCount > 21 && gokuCount <= 28) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[3].x_ini,
-          gokuSprite.posSprite[3].y_ini,
-          gokuSprite.posSprite[3].w,
-          gokuSprite.posSprite[3].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage( this.imgGoku, gokuSprite.posSprite[3].x_ini, gokuSprite.posSprite[3].y_ini, gokuSprite.posSprite[3].w,
+          gokuSprite.posSprite[3].h, this.x, this.y, this.width, this.heigth );
       } else if (gokuCount > 28 && gokuCount <= 35) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[4].x_ini,
-          gokuSprite.posSprite[4].y_ini,
-          gokuSprite.posSprite[4].w,
-          gokuSprite.posSprite[4].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage( this.imgGoku, gokuSprite.posSprite[4].x_ini, gokuSprite.posSprite[4].y_ini, gokuSprite.posSprite[4].w,
+          gokuSprite.posSprite[4].h, this.x, this.y, this.width, this.heigth);
       } else if (gokuCount > 35 && gokuCount <= 41) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[5].x_ini,
-          gokuSprite.posSprite[5].y_ini,
-          gokuSprite.posSprite[5].w,
-          gokuSprite.posSprite[5].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage(this.imgGoku, gokuSprite.posSprite[5].x_ini, gokuSprite.posSprite[5].y_ini, gokuSprite.posSprite[5].w,
+          gokuSprite.posSprite[5].h, this.x, this.y, this.width, this.heigth);
       } else if ((gokuCount = 42)) {
-        ctx.drawImage(
-          this.imgGoku,
-          gokuSprite.posSprite[5].x_ini,
-          gokuSprite.posSprite[5].y_ini,
-          gokuSprite.posSprite[5].w,
-          gokuSprite.posSprite[5].h,
-          this.x,
-          this.y,
-          this.width,
-          this.heigth
-        );
+        ctx.drawImage(this.imgGoku, gokuSprite.posSprite[5].x_ini, gokuSprite.posSprite[5].y_ini, gokuSprite.posSprite[5].w, 
+        gokuSprite.posSprite[5].h, this.x, this.y, this.width, this.heigth);
         gokuCount = 0;
       }
     }
@@ -153,26 +92,26 @@ window.onload = () => {
       this.y += this.velocidad;
     }
   }
-  class PlatformMove extends Platform {
-    constructor(x, y, width, heigth) {
-      super(x, y, width, heigth); //son caracteristicas de Platform que queremos conservar,
+  class PlatformMove {
+    constructor() {
+      this.x = Math.floor(Math.random() * 390);
+      this.y = 0;
+      this.w = 160;
+      this.h = 60;
       this.imgPlatformMove = new Image();
       this.imgPlatformMove.src = "images/kinton.png";
-      this.velocidadX = 20;
-      this.velocidadY = 10;
+      this.velocidadX = 8;
+      this.velocidadY = 0;
     }
     print(ctx) {
-      ctx.drawImage(
-        this.imgPlatformMove,
-        this.x,
-        this.y,
-        this.width,
-        this.heigth
-      );
+      ctx.drawImage(this.imgPlatformMove, this.x, this.y, this.w, this.h);
     }
     move() {
       this.x += this.velocidadX;
-      this.y += this.velocidadY;
+      if (this.x > canvas.width) {
+        this.x = 0;
+      }
+      //  this.y += this.velocidadY
     }
   }
   class PlatformBreak extends Platform {
@@ -184,13 +123,7 @@ window.onload = () => {
       this.imgPlatformBreaking.src = "";
     }
     print(ctx) {
-      ctx.drawImage(
-        this.imgPlatformBreak,
-        this.x,
-        this.y,
-        this.width,
-        this.heigth
-      );
+      ctx.drawImage(this.imgPlatformBreak, this.x, this.y, this.width, this.heigth);
     }
     /* g   BONUS     break (ctx) {
             ctx.drawImage(this.imgPlatformBreaking, this.x, this.y, this.width, this.heigth)
@@ -235,17 +168,14 @@ window.onload = () => {
       this.iteration = 0;
       this.jumpT = false;
     }
-
     start() {
       if (this.intervalId == undefined) {
         this.intervalId = setInterval(() => {
           this.score += 10;
           gokuCount++;
           this.iteration++;
-          sound.play();
-
           this.clear();
-          //this.gravity();
+          sound.play();
           this.recalculate();
           this.gravity();
           this.print();
@@ -255,53 +185,46 @@ window.onload = () => {
     }
     stop() {
       if (this.goku.y > 750) {
+        gameActive = false;
+        console.log(gameActive);
         clearInterval(this.intervalId);
+        gokuCount = 0;
         this.lose.src = "images/GameOver.png";
         this.ctx.drawImage(this.lose, 100, 200, 300, 300);
         this.ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-
       }
-      if (this.score >= 2500) {
-        clearInterval(this.intervalId);
-        this.win.src = "images/winphoto.png";
+      /* if (this.score >= 2500) {
+                clearInterval(this.intervalId)
+                this.win.src = "images/winphoto.png";
         this.ctx.drawImage(this.win, 100, 200, 300, 350);
-      }
+            } */
     }
-
+    delet() {
+      delete this;
+    }
     clear() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
     print() {
-      this.ctx.drawImage(
-        this.wallpaper,
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-      );
+      this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height);
       this.ctx.fillStyle = "black";
       this.ctx.font = "20px Arial";
-      this.ctx.fillText(`SCORE: ${this.score}`, 50, 50);
+      this.ctx.fillText(`Score: ${this.score}`, 10, 30);
       this.platform.print(this.ctx);
       this.goku.print(this.ctx);
+      if (this.score >= 2500 && this.score <= 7500) {
+        this.platformMove.print(this.ctx);
+      }
     }
     gravity() {
       this.goku.y += 8;
     }
     jump() {
       if (this.jumpT == true && this.iteration >= 0 && this.iteration <= 8) {
-        this.goku.y -= 4;
-      } else if (
-        this.jumpT == true &&
-        this.iteration >= 9 &&
-        this.iteration <= 14
-      ) {
-        this.goku.y -= 2.5;
-      } else if (
-        this.jumpT == true &&
-        this.iteration >= 15 &&
-        this.iteration <= 18
-      ) {
+        this.goku.y -= 3.5;
+      } else if (this.jumpT == true && this.iteration >= 9 && this.iteration <= 14) {
+        this.goku.y -= 2;
+      } else if (this.jumpT == true && this.iteration >= 15 && this.iteration <= 18) {
         this.goku.y -= 1;
       } else if (this.jumpT == true && this.iteration >= 19) {
         this.goku.y -= 0.8;
@@ -324,59 +247,71 @@ window.onload = () => {
             } 
         } */
     recalculate() {
-      this.platforms.forEach((platform) => {
-        if (platform.y_ini > this.canvas.height) {
-          platform.x_ini = Math.floor(Math.random() * 390);
-          platform.y_ini = -10;
+        this.platformMove.move();
+        this.platforms.forEach((platform) => {
+            if (platform.y_ini > this.canvas.height) {
+                platform.x_ini = Math.floor(Math.random() * 390);
+                platform.y_ini = -10;
+              }
+              if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25)) {
+                this.jumpT = true;
+                this.iteration = 0;
+                gokuCount = 6;
+              }
+              if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25)) {
+                this.jumpT = true;
+                this.iteration = 0;
+                gokuCount = 6;
+              }
+              if (this.jumpT == true) {
+                this.platforms[0].y_ini += 1;
+                this.platforms[1].y_ini += 1;
+                this.platforms[2].y_ini += 1;
+                this.platforms[3].y_ini += 1;
+                this.platforms[4].y_ini += 1;
+                if (this.score >= 2500 && this.score <= 7500) {
+                  this.platformMove.y += 1;
+                }
+                this.jump();
+                if (this.goku.y < 60) this.goku.y = 60;
+              }
+            });
         }
-        if (
-          !(
-            this.goku.x + this.goku.width - 20 < platform.x_ini + 10 ||
-            this.goku.x - 10 > platform.x_ini + platform.w - 50 ||
-            this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 ||
-            this.goku.y - 10 > platform.h + platform.y_ini - 25
-          )
-        ) {
-          this.jumpT = true;
-          this.iteration = 0;
-          gokuCount = 6;
-          console.log(this.jumpT);
-        }
-        if (this.jumpT == true) {
-          this.platforms[0].y_ini += 1;
-          this.platforms[1].y_ini += 1;
-          this.platforms[2].y_ini += 1;
-          this.platforms[3].y_ini += 1;
-          this.platforms[4].y_ini += 1;
-          this.jump();
-          if (this.goku.y < 60) this.goku.y = 60;
-        }
-      });
     }
-  }
-  let game = new Game(platforms);
-  document.getElementById("btn").onclick = () => {
-    startGame();
-  };
+    
+    let sound = new Audio("sounds/Musica.mp3");
+    let game = new Game(platforms);
+    document.getElementById("btn").onclick = () => {
+    if (!gameActive) {
+        console.log("boton start");
+        sound.play();
+        gameActive = true;
+        game.clear();
+        game.delet();
+        game = new Game(platforms);
+        startGame();
+    }
+};
   function startGame() {
-    game.start();
-  }
+      game.start();
+    }
+    
   document
     .getElementsByTagName("body")[0]
     .addEventListener("keydown", (flecha) => {
-      switch (flecha.key) {
-        case "ArrowLeft":
-          game.goku.moveLeft();
-          break;
-        case "ArrowRight":
-          game.goku.moveRight();
-          break;
-        default:
-          break;
-      }
-    });
-  let sound = new Audio("sounds/Musica.mp3");
-  document.getElementById("startButton").addEventListener("click", function () {
-    sound.play();
-  });
+        switch (flecha.key) {
+            case "ArrowLeft":
+                game.goku.moveLeft();
+                //if(player.x < 0) player.x = 0;
+                break;
+                case "ArrowRight":
+                    game.goku.moveRight();
+                    //if(player.x > 430) player.x = 430;
+                    break;
+                    default:
+                        break;
+                    }
+                });
+
 };
+            
