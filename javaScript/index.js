@@ -291,9 +291,7 @@ window.onload = () => {
       game.start();
     }
     
-  document
-    .getElementsByTagName("body")[0]
-    .addEventListener("keydown", (flecha) => {
+  document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) => {
         switch (flecha.key) {
             case "ArrowLeft":
                 game.goku.moveLeft();
