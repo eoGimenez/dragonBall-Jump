@@ -28,13 +28,8 @@ window.onload = () => {
       this.heigth = 105; //heigth;
       this.velocidadX = 20;
       this.velocidadY = 20;
-      this.gravity = 0.98;
-      this.aceleracion = -9.8;
       this.imgGoku = new Image();
       this.imgGoku.src = gokuSprite.src;
-      this.jump = 60;
-      this.i = 0;
-      this.setIntervalGoku = undefined;
     }
 
     print(ctx) {
@@ -192,12 +187,12 @@ window.onload = () => {
         this.lose.src = "images/GameOver.png";
         this.ctx.drawImage(this.lose, 100, 200, 300, 300);
         this.ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-      }
-      /* if (this.score >= 2500) {
+        }
+      if (this.score >= 12000) {
                 clearInterval(this.intervalId)
                 this.win.src = "images/winphoto.png";
         this.ctx.drawImage(this.win, 100, 200, 300, 350);
-            } */
+        } 
     }
     delet() {
       delete this;
