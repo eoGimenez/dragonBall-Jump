@@ -273,10 +273,10 @@ class Goku {
                         gokuCount = 6;
                         console.log(this.jumpT)
                     }
-                    if(!(this.goku.x + this.goku.width < this.obstacle.x || this.goku.x > this.obstacle.x + this.obstacle.width || this.goku.y > this.obstacle.y + this.obstacle.heigth || this.goku.y + this.goku.heigth < this.obstacle.y)) {
+                 /*    if(!(this.goku.x + this.goku.width < this.obstacle.x || this.goku.x > this.obstacle.x + this.obstacle.width || this.goku.y > this.obstacle.y + this.obstacle.heigth || this.goku.y + this.goku.heigth < this.obstacle.y)) {
                         console.log("eiii")
                         this.colition = true
-                    }
+                    } */
                     if (this.jumpT == true) {
                         this.platforms[0].y_ini += 1;
                         this.platforms[1].y_ini += 1;
