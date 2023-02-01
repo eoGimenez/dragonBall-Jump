@@ -235,11 +235,12 @@ class Goku {
                         this.jump()
 
                     }  */ 
-                if(this.goku.y == platform.y_ini || this.goku.x == platform.x_ini){
+                if((this.goku.width + this.goku.x == platform.x_ini + platform.w || this.goky)){
                     console.log("hola")
-                    this.goku.y -= 60};
+                    this.goku.y -= 20};
                 
-                })   
+                })
+                console.log("dos")
             } 
         }
         let game = new Game(platforms);
