@@ -163,10 +163,10 @@ class Goku {
       this.goku = new Goku();
       this.platform = new Platform();
       this.platformMove = new PlatformMove();
+      this.obstacle = new Obstacle ()
       this.platformBreak = new PlatformBreak();
       this.platforms = platforms;
       this.platformsMove = [];
-      this.obstacles = [];
       this.score = 0;
       this.intervalId = undefined;
       this.iteration = 0;
