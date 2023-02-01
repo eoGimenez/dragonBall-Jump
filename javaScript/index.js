@@ -1,4 +1,5 @@
 window.onload = () => {
+    let soundActive = true;
   let gameActive = false;
   let gokuCount = 0;
   const gokuSprite = {
@@ -27,14 +28,8 @@ window.onload = () => {
       this.width = 80; //width;
       this.heigth = 105; //heigth;
       this.velocidadX = 20;
-      this.velocidadY = 20;
-      this.gravity = 0.98;
-      this.aceleracion = -9.8;
       this.imgGoku = new Image();
       this.imgGoku.src = gokuSprite.src;
-      this.jump = 60;
-      this.i = 0;
-      this.setIntervalGoku = undefined;
     }
 
     print(ctx) {
@@ -175,7 +170,7 @@ window.onload = () => {
           gokuCount++;
           this.iteration++;
           this.clear();
-          sound.play();
+          //sound.play();
           this.recalculate();
           this.gravity();
           this.print();
@@ -283,7 +278,6 @@ window.onload = () => {
     let game = new Game(platforms);
     document.getElementById("btn").onclick = () => {
     if (!gameActive) {
-        console.log("boton start");
         sound.play();
         gameActive = true;
         game.clear();
@@ -296,22 +290,26 @@ window.onload = () => {
       game.start();
     }
     
-  document
-    .getElementsByTagName("body")[0]
-    .addEventListener("keydown", (flecha) => {
+  document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) => {
         switch (flecha.key) {
             case "ArrowLeft":
                 game.goku.moveLeft();
-                //if(player.x < 0) player.x = 0;
                 break;
-                case "ArrowRight":
-                    game.goku.moveRight();
-                    //if(player.x > 430) player.x = 430;
+            case "ArrowRight":
+                game.goku.moveRight();
+                break;
+                default:
                     break;
-                    default:
-                        break;
-                    }
-                });
-
+        }
+    });
+    document.getElementsByClassName('btn-sound').onclick = () => {
+        if (!soundActive) {
+            sound.play();
+            console.log("sound on")
+        }else {
+            console.log("sound of")
+            sound.pause();
+        }
+    }
 };
             
