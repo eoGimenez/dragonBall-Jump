@@ -19,7 +19,7 @@ window .onload = () => {
             //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
             { x_ini: 200, y_ini: 40, w: 160, h: 60}
         ];
-    class Goku {
+class Goku {
     constructor () {
             this.x = 140;
             this.y = 380;
@@ -55,17 +55,6 @@ window .onload = () => {
                 gokuCount = 0;
             }
         }
-        move () {
-            this.y += this.velocidadY;
-            this.velocidadY += this.gravity;
-            platforms.forEach(platform => {
-                if (this.y + this.heigth > platform.y_ini && this.y < platform.y_ini + platform.h &&
-                    this.x + this.width > platform.x_ini && this.x < platform.x_ini + platform.w) {
-                  this.velocidadY *= -1;
-                
-            }
-        });
-        }   
         moveLeft () {
             this.x -= this.velocidadX;
             if (this.x < 0) {
@@ -177,6 +166,7 @@ window .onload = () => {
                     this.clear();
                     //this.gravity();
                     this.recalculate();
+                    this.gravity();
                     this.print();
                     this.stop();
                 }, 25) 
@@ -188,10 +178,10 @@ window .onload = () => {
                 clearInterval(this.intervalId) 
                 this.ctx.fillText('GAME OVER', 200, 300);
             }
-            /* if (this.score == 2500) {
+             if (this.score == 2500) {
                 clearInterval(this.intervalId)
-                this.ctx.fillText('MVP =  mas velocidad porfa', 200, 300);
-            } */
+                this.ctx.fillText('You Win', 200, 300);
+            } 
             };
         
         clear () {
@@ -207,38 +197,20 @@ window .onload = () => {
         }
         gravity () {
             this.goku.y += 8
-            /* this.platforms.forEach(platform => {
-                platform.y_ini += 2
-            })  */
         }
         jump () {
-            console.log(this.iteration)
-            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
-                this.goku.y -=2;
-            } else if (this.jumpT == true && this.iteration >= 21 && this.iteration <=30) {
-                this.goku.y -= 4;
-            } else if (this.jumpT == true && this.iteration >= 31 && this.iteration <=35) {
-                this.goku.y -= 5;
-            } else if (this.jumpT == true && this.iteration >= 36) {
-                this.goku.y -= 5.5;
+            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=8) {
+                this.goku.y -=4;
+            } else if (this.jumpT == true && this.iteration >= 9 && this.iteration <=14) {
+                this.goku.y -= 2.5;
+            } else if (this.jumpT == true && this.iteration >= 15 && this.iteration <=18) {
+                this.goku.y -= 1;
+            } else if (this.jumpT == true && this.iteration >= 19) {
+                this.goku.y -= 0.8;
                 this.iteration = 0;
                 this.jumpT = false
             } 
         }
-         /*        jump () {
-            console.log(this.iteration)
-            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=8) {
-                this.goku.y -=5;
-            } else if (this.jumpT == true && this.iteration >= 9 && this.iteration <=14) {
-                this.goku.y -= 4;
-            } else if (this.jumpT == true && this.iteration >= 15 && this.iteration <=18) {
-                this.goku.y -= 2;
-            } else if (this.jumpT == true && this.iteration >= 19) {
-                this.goku.y -= 1;
-                this.iteration = 0;
-                this.jumpT = false
-            } 
-        } */
         /* bolaDragon () {
             if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
                 this.goku.y -=100;
@@ -254,19 +226,21 @@ window .onload = () => {
             } 
         } */
         recalculate() {
-            this.platforms.forEach((platform) => {
-                if (platform.y_ini > this.canvas.height) {
-                    platform.x_ini = Math.floor(Math.random() *390);
-                    platform.y_ini = -10;
-                }
-                if  (!((this.goku.x + this.goku.width) -20 < platform.x_ini +10 || this.goku.x -10 > platform.x_ini + platform.w -50 || (this.goku.y + this.goku.heigth) -10 < platform.y_ini +20 || this.goku.y -10 > platform.h + platform.y_ini -25)) {
+                 this.platforms.forEach((platform) => {
+/*                     if (this.goku.y < 200) {
+                        platform.y_ini += (this.goku.y -160)
+                    } */
+                    if (platform.y_ini > this.canvas.height) {
+                        platform.x_ini = Math.floor(Math.random() *390);
+                        platform.y_ini = -10;
+                    }
+                    if  (!((this.goku.x + this.goku.width) -20 < platform.x_ini +10 || this.goku.x -10 > platform.x_ini + platform.w -50 || (this.goku.y + this.goku.heigth) -10 < platform.y_ini +20 || this.goku.y -10 > platform.h + platform.y_ini -25)) {
                     //(platform.x_ini + platform.w < this.goku.heigth + this.goku.x) { 
                         this.jumpT = true;
                         gokuCount = 6;
                         console.log(this.jumpT)
                     }
-                    
-                if (this.jumpT == true) {
+                    if (this.jumpT == true) {
                         this.platforms[0].y_ini += 1;
                         this.platforms[1].y_ini += 1;
                         this.platforms[2].y_ini += 1;
@@ -277,12 +251,10 @@ window .onload = () => {
                        // this.goku.y -= 100
                         if (this.goku.y < 60) this.goku.y = 60;
                         //this.jumpT = false
-                    }    
-                    
+                    }
                 })
             } 
         }
-    
         let game = new Game(platforms);
         document.getElementById('btn').onclick = () => {
             startGame();
