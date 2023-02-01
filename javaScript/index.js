@@ -1,43 +1,36 @@
 window.onload = () => {
-    let gameActive = false;
-    let gokuCount = 0;
-       const gokuSprite = {
-        posSprite: [
-          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
-          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
-        ],
-        src: "images/Sprites.png"
-    };    
-    let platforms = [
-            { x_ini: 300, y_ini: 350, w: 160, h: 60},
-            { x_ini: 200, y_ini: 450, w: 160, h: 60},
-            { x_ini: 400, y_ini: 140, w: 160, h: 60},
-            { x_ini: 100, y_ini: 600, w: 160, h: 60}, 
-            //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
-            { x_ini: 200, y_ini: 40, w: 160, h: 60}
-        ];
-   /*  let obstacles = [
-            { x_ini: 300, y_ini: 350, w: 260, h: 70},] */
-class Goku {
-    constructor () {
-            this.x = 140;
-            this.y = 380;
-            this.width = 80 //width;
-            this.heigth = 105 //heigth;
-            this.velocidadX = 20;
-            this.velocidadY = 20;
-            this.gravity = 0.98;
-            this.aceleracion = -9.8,
-            this.imgGoku = new Image ();
-            this.imgGoku.src = gokuSprite.src;
-            this.jump= 60;
-            this.i = 0;
-            this.setIntervalGoku = undefined;
-        }
+  let gameActive = false;
+  let gokuCount = 0;
+  const gokuSprite = {
+    posSprite: [
+      { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+      { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 288, y_ini: 5, w: 65, h: 99 },
+    ],
+    src: "images/Sprites.png",
+  };
+  let platforms = [
+    { x_ini: 300, y_ini: 350, w: 160, h: 60 },
+    { x_ini: 200, y_ini: 450, w: 160, h: 60 },
+    { x_ini: 400, y_ini: 140, w: 160, h: 60 },
+    { x_ini: 100, y_ini: 600, w: 160, h: 60 },
+    //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
+    { x_ini: 200, y_ini: 40, w: 160, h: 60 },
+  ];
+  class Goku {
+    constructor() {
+      this.x = 140;
+      this.y = 380;
+      this.width = 80; //width;
+      this.heigth = 105; //heigth;
+      this.velocidadX = 20;
+      this.velocidadY = 20;
+      this.imgGoku = new Image();
+      this.imgGoku.src = gokuSprite.src;
+    }
 
     print(ctx) {
       // cuando hagamos control de coliciones, cuando toca para volver a saltar hay que reiniciar la animacion desde que toca,
@@ -197,12 +190,12 @@ class Goku {
         this.lose.src = "images/GameOver.png";
         this.ctx.drawImage(this.lose, 100, 200, 300, 300);
         this.ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-      }
-      /* if (this.score >= 2500) {
+        }
+      if (this.score >= 12000) {
                 clearInterval(this.intervalId)
                 this.win.src = "images/winphoto.png";
         this.ctx.drawImage(this.win, 100, 200, 300, 350);
-            } */
+        } 
     }
     delet() {
       delete this;
