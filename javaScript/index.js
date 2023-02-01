@@ -1,7 +1,8 @@
 window.onload = () => {
+    let btnSound = document.getElementsByClassName('btn-sound')[0];
     let soundActive = true;
-  let gameActive = false;
-  let gokuCount = 0;
+    let gameActive = false;
+    let gokuCount = 0;
   const gokuSprite = {
     posSprite: [
       { x_ini: 5, y_ini: 5, w: 60, h: 90 },
@@ -132,18 +133,15 @@ window.onload = () => {
         this.y = -10;
         this.width = 100;
         this.heigth = 80; 
-        /* this.velocidadX = velocidadX; */
         this.imgObstacle = new Image ();
         this.imgObstacle.src = "images/cabeza.png";
         //this.velocidadY = velocidadY; BONUS
     }
     print(ctx){
-        
             ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.heigth);
         };
-    
-}
-  class Game {
+    }
+    class Game {
     constructor(platforms) {
       this.canvas = document.getElementById("canvas");
       this.ctx = canvas.getContext("2d");
@@ -173,7 +171,6 @@ window.onload = () => {
           gokuCount++;
           this.iteration++;
           this.clear();
-          //sound.play();
           this.recalculate();
           this.gravity();
           this.print();
@@ -182,19 +179,16 @@ window.onload = () => {
       }
     }
     stop() {
-      if (this.goku.y > 750|| this.colition == true) {
+      if (this.goku.y > 750 || this.colition == true) {
         gameActive = false;
-        console.log(gameActive);
         clearInterval(this.intervalId);
         gokuCount = 0;
         this.lose.src = "images/GameOver.png";
         this.ctx.drawImage(this.lose, 100, 200, 300, 300);
-        this.ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
       }
       /* if (this.score >= 2500) {
                 clearInterval(this.intervalId)
                 this.win.src = "images/winphoto.png";
-        this.ctx.drawImage(this.win, 100, 200, 300, 350);
             } */
     }
     delet() {
@@ -253,23 +247,22 @@ window.onload = () => {
             if (platform.y_ini > this.canvas.height) {
                 platform.x_ini = Math.floor(Math.random() * 390);
                 platform.y_ini = -10;
-              }
-              if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25)) {
+            }
+            if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25)) {
                 this.jumpT = true;
                 this.iteration = 0;
                 gokuCount = 6;
-              }
-              if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25)) {
+            }
+            if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25)) {
                 this.jumpT = true;
                 this.iteration = 0;
                 gokuCount = 6;
-              }
-
-             /*  if(!(this.goku.x + this.goku.width < this.obstacle.x || this.goku.x > this.obstacle.x + this.obstacle.width || this.goku.y > this.obstacle.y + this.obstacle.heigth || this.goku.y + this.goku.heigth < this.obstacle.y)) {
-                console.log("eiii")
+            }
+            if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x +10 > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
                 this.colition = true
-            } */
-              if (this.jumpT == true) {
+                console.log(this.colition)
+            }  
+            if (this.jumpT == true) {
                 this.platforms[0].y_ini += 1;
                 this.platforms[1].y_ini += 1;
                 this.platforms[2].y_ini += 1;
@@ -277,6 +270,7 @@ window.onload = () => {
                 this.platforms[4].y_ini += 1;
                 if (this.score >= 2500 && this.score <= 7500) {
                   this.platformMove.y += 1;
+                  this.obstacle.y += 1;
                 }
                 this.jump();
                 if (this.goku.y < 60) this.goku.y = 60;
@@ -314,13 +308,15 @@ window.onload = () => {
                     break;
         }
     });
-    document.getElementsByClassName('btn-sound').onclick = () => {
+    document.getElementsByClassName('btn-sound')[0].onclick = () => {
         if (!soundActive) {
             sound.play();
-            console.log("sound on")
+            soundActive = true;
+            btnSound.innerHTML = 'SOUND ON'
         }else {
-            console.log("sound of")
             sound.pause();
+            soundActive = false
+            btnSound.innerHTML = 'SOUND OFF'
         }
     }
 };
