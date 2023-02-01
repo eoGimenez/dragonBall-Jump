@@ -203,32 +203,18 @@ class Goku {
         }
         jump () {
             console.log(this.iteration)
-            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
-                this.goku.y -=2;
-            } else if (this.jumpT == true && this.iteration >= 21 && this.iteration <=30) {
-                this.goku.y -= 4;
-            } else if (this.jumpT == true && this.iteration >= 31 && this.iteration <=35) {
-                this.goku.y -= 5;
-            } else if (this.jumpT == true && this.iteration >= 36) {
-                this.goku.y -= 5.5;
+            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=8) {
+                this.goku.y -=4;
+            } else if (this.jumpT == true && this.iteration >= 9 && this.iteration <=14) {
+                this.goku.y -= 2.5;
+            } else if (this.jumpT == true && this.iteration >= 15 && this.iteration <= 18) {
+                this.goku.y -= 1;
+            } else if (this.jumpT == true && this.iteration >= 19) {
+                this.goku.y -=0.8;
                 this.iteration = 0;
                 this.jumpT = false
             } 
         }
- /*        jump () {
-            console.log(this.iteration)
-            if (this.jumpT == true && this.iteration >= 0 && this.iteration <=8) {
-                this.goku.y -=5;
-            } else if (this.jumpT == true && this.iteration >= 9 && this.iteration <=14) {
-                this.goku.y -= 4;
-            } else if (this.jumpT == true && this.iteration >= 15 && this.iteration <=18) {
-                this.goku.y -= 2;
-            } else if (this.jumpT == true && this.iteration >= 19) {
-                this.goku.y -= 1;
-                this.iteration = 0;
-                this.jumpT = false
-            } 
-        } */
         /* bolaDragon () {
             if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
                 this.goku.y -=100;
@@ -252,21 +238,10 @@ class Goku {
                         platform.x_ini = Math.floor(Math.random() *390);
                         platform.y_ini = -10;
                     }
-                    /* let checkDistance = function (gokuX, gokuY, platformX, platformY) {
-                        result = Math.sqrt(Math.pow(gokuX - gokuY, -2) + Math.pow(platformX - platformY, -2));
-                        return result;
-                    }
-                    console.log(result)
-                    if (checkDistance(this.goku.x, this.goku.y, platform.x_ini, platform.y_ini) < (this.goku.y + platform.y_ini) ) {
-                        this.jumpTest = true
-                        this.jump();
-                        console.log(this.jumpTest) 
-                    }*/
                     if  (!((this.goku.x + this.goku.width) -20 < platform.x_ini +10 || this.goku.x -10 > platform.x_ini + platform.w -50 || (this.goku.y + this.goku.heigth) -10 < platform.y_ini +20 || this.goku.y -10 > platform.h + platform.y_ini -25)) {
-                    //(platform.x_ini + platform.w < this.goku.heigth + this.goku.x) { 
                         this.jumpT = true;
+                        this.iteration = 0
                         gokuCount = 6;
-                        console.log(this.jumpT)
                     }
                     if (this.jumpT == true) {
                         this.platforms[0].y_ini += 1;
@@ -276,9 +251,7 @@ class Goku {
                         this.platforms[4].y_ini += 1;
                         //this.platforms[5].y_ini += 25;
                         this.jump();
-                       // this.goku.y -= 100
                         if (this.goku.y < 60) this.goku.y = 60;
-                        //this.jumpT = false
                     }
                 })
             } 
