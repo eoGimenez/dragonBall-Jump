@@ -60,7 +60,14 @@ class Goku {
         move () {
             this.y += this.velocidadY;
             this.velocidadY += this.gravity;
-        }
+            platforms.forEach(platform => {
+                if (this.y + this.heigth > platform.y_ini && this.y < platform.y_ini + platform.h &&
+                    this.x + this.width > platform.x_ini && this.x < platform.x_ini + platform.w) {
+                  this.velocidadY *= -1;
+                
+            }
+        });
+        }   
         moveLeft () {
             this.x -= this.velocidadX;
             if (this.x < 0) {
@@ -73,27 +80,7 @@ class Goku {
                 this.x = 0;
               }
         }
-        colision (platforms) {
-            for (let i = 0; i < platforms.length; i++) {
-                let platforms = platforms[i];
-                if (this.x + this.width >= platforms.x_ini && this.x <= platforms.x_ini + platforms.w &&
-                    this.y + this.heigth >= platforms.y_ini && this.y <= platforms.y_ini + platforms.h) {
-                    this.y = platforms.y_ini - this.heigth;
-                    this.aceleracion = 0;
-                }
-            }
-        }
-        update () {
-            this.y += this.aceleracion;
-            this.aceleracion += this.gravity;
-            this.colision(platforms);
-            platforms.forEach(platform => {
-                if (this.x + this.width > platform.x_ini && this.x < platform.x_ini + platform.w && this.y + this.heigth > platform.y_ini && this.y < platform.y_ini + platform.h) {
-                  this.velocidadY = 0;
-                  this.y = platform.y_ini - this.heigth;
-                }
-              });
-        }
+        
 
         
     }
@@ -193,6 +180,8 @@ class Goku {
                     cont++
                     this.clear();
                     this.jump();
+                    this.move();
+
                     this.gravity();
                     this.recalculate();
                     this.print();
@@ -238,20 +227,24 @@ class Goku {
             
         }
         recalculate() {
-                 this.platforms.forEach((platform) => {
-/*                     if (this.goku.y < 200) {
-                        platform.y_ini += (this.goku.y -160)
-                    } */
-                    if (platform.y_ini > this.canvas.height) {
-                        platform.x_ini = Math.floor(Math.random() *390);
-                        platform.y_ini = -10;
+            
+            for (let i = 0; i < platforms; i++) {
+                let platforms = platforms[i];
+                if (this.x + this.width >= platforms.x_ini && this.x <= platforms.x_ini + platforms.w &&
+                    this.y + this.heigth >= platforms.y_ini && this.y <= platforms.y_ini + platforms.h) {
+                    this.y = platforms.y_ini - this.heigth;
+                    this.aceleracion = 0;
+                }
+                platforms.forEach(platform => {
+                    if (this.x + this.width > platforms.x_ini && this.x < platforms.x_ini + platforms.w && this.y + this.heigth > platforms.y_ini && this.y < platform.y_ini + platform.h) {
+                      this.velocidadY = 0;
+                      this.y = platforms.y_ini - this.heigth;
                     }
-                    if ((this.goku.y + this.goku.width > platform.x_ini || this.goku.width > platform.w + platform.y_ini)) {
-                        this.jump()
-
-                    }  
-                })   
-            } 
+                  });
+            }
+                    
+            }
+             
         }
         let game = new Game(platforms);
         document.getElementById('btn').onclick = () => {
