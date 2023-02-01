@@ -60,13 +60,13 @@ class Goku {
     }
   }
   moveLeft() {
-    this.x -= this.velocidadX;
+    this.x -= this.velocidadX /1;
     if (this.x < 0) {
       this.x = canvas.width;
     }
   }
   moveRight() {
-    this.x += this.velocidadX;
+    this.x += this.velocidadX /1;
     if (this.x > canvas.width) {
       this.x = 0;
     }
@@ -175,7 +175,7 @@ class Obstacle {
         this.gravity();
         this.print();
         this.stop();
-      }, 25);
+      }, 20);
     }
   }
   stop() {
@@ -187,9 +187,10 @@ class Obstacle {
       this.ctx.drawImage(this.lose, 100, 200, 300, 300);
       this.ctx.fillText("GAME OVER", 200, 350);
     }
-    if (this.score >= 12000) {
-              clearInterval(this.intervalId)
-              this.win.src = "images/winphoto.png";
+    if (this.score >= 2000) {
+      clearInterval(this.intervalId)
+      this.win.src = "images/winphoto.png";
+      this.ctx.drawImage(this.win, 100, 200, 300, 300)
     } 
   }
   delet() {
@@ -201,8 +202,8 @@ class Obstacle {
   print() {
     this.ctx.drawImage(this.wallpaper, 0, 0, this.canvas.width, this.canvas.height);
     this.ctx.fillStyle = "black";
-    this.ctx.font = "20px Arial";
-    this.ctx.fillText(`Score: ${this.score}`, 10, 30);
+    this.ctx.font = "25px Rubik Mono One";
+    this.ctx.fillText(`SCORE: ${this.score}`, 30, 50);
     this.platform.print(this.ctx);
     this.goku.print(this.ctx);
     if (this.score >= 2500 && this.score <= 7500) {
@@ -320,5 +321,8 @@ document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) =>
           btnSound.innerHTML = 'SOUND OFF'
       }
   }
-};
-          
+  document.querySelector("#btn").addEventListener("click", function() {
+    document.querySelector("#gameBoard").style.display = "block";
+});
+
+};        
