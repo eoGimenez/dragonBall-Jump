@@ -185,11 +185,12 @@ class Obstacle {
       gokuCount = 0;
       this.lose.src = "images/GameOver.png";
       this.ctx.drawImage(this.lose, 100, 200, 300, 300);
+      this.ctx.fillText("GAME OVER", 200, 350);
     }
-    /* if (this.score >= 2500) {
+    if (this.score >= 12000) {
               clearInterval(this.intervalId)
               this.win.src = "images/winphoto.png";
-          } */
+    } 
   }
   delet() {
     delete this;
