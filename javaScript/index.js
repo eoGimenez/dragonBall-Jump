@@ -19,7 +19,7 @@ window .onload = () => {
             //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
             { x_ini: 200, y_ini: 40, w: 160, h: 60}
         ];
-class Goku {
+    class Goku {
     constructor () {
             this.x = 140;
             this.y = 380;
@@ -225,7 +225,7 @@ class Goku {
                 this.jumpT = false
             } 
         }
- /*        jump () {
+         /*        jump () {
             console.log(this.iteration)
             if (this.jumpT == true && this.iteration >= 0 && this.iteration <=8) {
                 this.goku.y -=5;
@@ -298,6 +298,7 @@ class Goku {
                 })
             } 
         }
+    }
         let game = new Game(platforms);
         document.getElementById('btn').onclick = () => {
             startGame();
@@ -319,4 +320,4 @@ class Goku {
                 break;
                 }
         })
-    }
+}
