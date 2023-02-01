@@ -1,43 +1,36 @@
 window.onload = () => {
-    let gameActive = false;
-    let gokuCount = 0;
-       const gokuSprite = {
-        posSprite: [
-          { x_ini: 5, y_ini: 5, w: 60, h: 90 },
-          { x_ini: 65, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 122, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 180, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 235, y_ini: 5, w: 60, h: 65 },
-          { x_ini: 288, y_ini: 5, w: 65, h: 99 }
-        ],
-        src: "images/Sprites.png"
-    };    
-    let platforms = [
-            { x_ini: 300, y_ini: 350, w: 160, h: 60},
-            { x_ini: 200, y_ini: 450, w: 160, h: 60},
-            { x_ini: 400, y_ini: 140, w: 160, h: 60},
-            { x_ini: 100, y_ini: 600, w: 160, h: 60}, 
-            //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
-            { x_ini: 200, y_ini: 40, w: 160, h: 60}
-        ];
-   /*  let obstacles = [
-            { x_ini: 300, y_ini: 350, w: 260, h: 70},] */
-class Goku {
-    constructor () {
-            this.x = 140;
-            this.y = 380;
-            this.width = 80 //width;
-            this.heigth = 105 //heigth;
-            this.velocidadX = 20;
-            this.velocidadY = 20;
-            this.gravity = 0.98;
-            this.aceleracion = -9.8,
-            this.imgGoku = new Image ();
-            this.imgGoku.src = gokuSprite.src;
-            this.jump= 60;
-            this.i = 0;
-            this.setIntervalGoku = undefined;
-        }
+    let soundActive = true;
+  let gameActive = false;
+  let gokuCount = 0;
+  const gokuSprite = {
+    posSprite: [
+      { x_ini: 5, y_ini: 5, w: 60, h: 90 },
+      { x_ini: 65, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 122, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 180, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 235, y_ini: 5, w: 60, h: 65 },
+      { x_ini: 288, y_ini: 5, w: 65, h: 99 },
+    ],
+    src: "images/Sprites.png",
+  };
+  let platforms = [
+    { x_ini: 300, y_ini: 350, w: 160, h: 60 },
+    { x_ini: 200, y_ini: 450, w: 160, h: 60 },
+    { x_ini: 400, y_ini: 140, w: 160, h: 60 },
+    { x_ini: 100, y_ini: 600, w: 160, h: 60 },
+    //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
+    { x_ini: 200, y_ini: 40, w: 160, h: 60 },
+  ];
+  class Goku {
+    constructor() {
+      this.x = 140;
+      this.y = 380;
+      this.width = 80; //width;
+      this.heigth = 105; //heigth;
+      this.velocidadX = 20;
+      this.imgGoku = new Image();
+      this.imgGoku.src = gokuSprite.src;
+    }
 
     print(ctx) {
       // cuando hagamos control de coliciones, cuando toca para volver a saltar hay que reiniciar la animacion desde que toca,
@@ -180,7 +173,7 @@ class Goku {
           gokuCount++;
           this.iteration++;
           this.clear();
-          sound.play();
+          //sound.play();
           this.recalculate();
           this.gravity();
           this.print();
@@ -297,7 +290,6 @@ class Goku {
     let game = new Game(platforms);
     document.getElementById("btn").onclick = () => {
     if (!gameActive) {
-        console.log("boton start");
         sound.play();
         gameActive = true;
         game.clear();
@@ -310,22 +302,26 @@ class Goku {
       game.start();
     }
     
-  document
-    .getElementsByTagName("body")[0]
-    .addEventListener("keydown", (flecha) => {
+  document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) => {
         switch (flecha.key) {
             case "ArrowLeft":
                 game.goku.moveLeft();
-                //if(player.x < 0) player.x = 0;
                 break;
-                case "ArrowRight":
-                    game.goku.moveRight();
-                    //if(player.x > 430) player.x = 430;
+            case "ArrowRight":
+                game.goku.moveRight();
+                break;
+                default:
                     break;
-                    default:
-                        break;
-                    }
-                });
-
+        }
+    });
+    document.getElementsByClassName('btn-sound').onclick = () => {
+        if (!soundActive) {
+            sound.play();
+            console.log("sound on")
+        }else {
+            console.log("sound of")
+            sound.pause();
+        }
+    }
 };
             
