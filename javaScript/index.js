@@ -136,6 +136,16 @@ class Obstacle {
       this.imgObstacle.src = "images/cabeza.png";
       this.velocidadX = 4;
   }
+  move(){
+    this.x += this.velocidadX;
+    if (this.x >= (canvas.width - 85)) {
+      this.velocidadX = - 4;
+    }
+    if(this.x <= 32){
+      this.velocidadX = 4;
+    }
+  
+  }
   print(ctx){
           ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.heigth);
       };
@@ -197,7 +207,7 @@ class Obstacle {
       this.ctx.drawImage(this.lose, 150, 180, 300, 300);
       this.ctx.fillText("GAME OVER", 200, 510);
     }
-    if (this.score >= 20000) {
+    if (this.score >= 7000) {
       gameActive = false;
       clearInterval(this.intervalId)
       this.win.src = "images/winphoto.png";
