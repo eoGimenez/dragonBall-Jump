@@ -24,8 +24,8 @@ let platforms = [
 ];
 class Goku {
   constructor() {
-    this.x = 140;
-    this.y = 380;
+    this.x = 200;
+    this.y = 200;
     this.width = 80; //width;
     this.heigth = 105; //heigth;
     this.velocidadX = 20;
@@ -135,7 +135,18 @@ class Obstacle {
       this.heigth = 80; 
       this.imgObstacle = new Image ();
       this.imgObstacle.src = "images/cabeza.png";
+      this.velocidadX = 4;
       //this.velocidadY = velocidadY; BONUS
+  }
+  move(){
+    this.x += this.velocidadX;
+    if (this.x >= (canvas.width - 85)) {
+      this.velocidadX = - 4;
+    }
+    if(this.x <= 32){
+      this.velocidadX = 4;
+    }
+  
   }
   print(ctx){
           ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.heigth);
@@ -189,7 +200,7 @@ class Obstacle {
       this.ctx.drawImage(this.lose, 150, 180, 300, 300);
       this.ctx.fillText("GAME OVER", 200, 510);
     }
-    if (this.score >= 2000) {
+    if (this.score >= 20000) {
       gameActive = false;
       clearInterval(this.intervalId)
       this.win.src = "images/winphoto.png";
@@ -248,6 +259,7 @@ class Obstacle {
       } */
   recalculate() {
       this.platformMove.move();
+      this.obstacle.move();
       this.platforms.forEach((platform) => {
           if (platform.y_ini > this.canvas.height) {
               platform.x_ini = Math.floor(Math.random() * 390);
@@ -296,6 +308,8 @@ class Obstacle {
       game.delet();
       game = new Game(platforms);
       startGame();
+      soundActive = true;
+      btnSound.innerHTML = 'SOUND ON'
   }
 };
 function startGame() {
@@ -314,6 +328,18 @@ document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) =>
                   break;
       }
   });
+  document.getElementsByTagName("body")[0].addEventListener("keyup", (flecha) => {
+    switch (flecha.key) {
+        case "ArrowLeft":
+            game.goku.moveLeft();
+            break;
+        case "ArrowRight":
+            game.goku.moveRight();
+            break;
+            default:
+                break;
+    }
+});
   document.getElementsByClassName('btn-sound')[0].onclick = () => {
       if (!soundActive) {
           sound.play();
