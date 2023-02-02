@@ -130,7 +130,6 @@ class PlatformBreak extends Platform {
 class Obstacle {
   constructor (canvas) {
       this.x = Math.floor(Math.random() * 350);
-      this.y = -10;
       this.width = 100;
       this.heigth = 80; 
       this.imgObstacle = new Image ();
@@ -184,13 +183,14 @@ class Obstacle {
       clearInterval(this.intervalId);
       gokuCount = 0;
       this.lose.src = "images/GameOver.png";
-      this.ctx.drawImage(this.lose, 100, 200, 300, 300);
-      this.ctx.fillText("GAME OVER", 200, 350);
+      this.ctx.drawImage(this.lose, 150, 180, 300, 300);
+      this.ctx.fillText("GAME OVER", 200, 510);
     }
     if (this.score >= 2000) {
+      gameActive = false;
       clearInterval(this.intervalId)
       this.win.src = "images/winphoto.png";
-      this.ctx.drawImage(this.win, 100, 200, 300, 300)
+      this.ctx.drawImage(this.win, 150, 150, 250, 350)
     } 
   }
   delet() {
