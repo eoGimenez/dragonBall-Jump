@@ -130,6 +130,7 @@ class PlatformBreak extends Platform {
 class Obstacle {
   constructor (canvas) {
       this.x = Math.floor(Math.random() * 350);
+      this.y = -60;
       this.width = 100;
       this.heigth = 80; 
       this.imgObstacle = new Image ();
@@ -170,7 +171,7 @@ class Obstacle {
         this.score += 10;
         gokuCount++;
         this.iteration++;
-        this.reJump = 0;
+        this.reJump++;
         this.clear();
         this.recalculate();
         this.gravity();
