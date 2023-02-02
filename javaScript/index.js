@@ -162,6 +162,7 @@ class Obstacle {
     this.iteration = 0;
     this.jumpT = false;
     this.colition = false;
+    this.reJump = 0;
   }
   start() {
     if (this.intervalId == undefined) {
@@ -169,6 +170,7 @@ class Obstacle {
         this.score += 10;
         gokuCount++;
         this.iteration++;
+        this.reJump = 0;
         this.clear();
         this.recalculate();
         this.gravity();
@@ -250,8 +252,9 @@ class Obstacle {
               platform.x_ini = Math.floor(Math.random() * 390);
               platform.y_ini = -10;
           }
-          if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25)) {
+          if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25) && this.reJump > 18) {
               this.jumpT = true;
+              this.reJump = 0;
               this.iteration = 0;
               gokuCount = 6;
           }
