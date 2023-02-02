@@ -19,7 +19,6 @@ window.onload = () => {
     { x_ini: 200, y_ini: 450, w: 160, h: 60 },
     { x_ini: 400, y_ini: 140, w: 160, h: 60 },
     { x_ini: 100, y_ini: 600, w: 160, h: 60 },
-    //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
     { x_ini: 200, y_ini: 40, w: 160, h: 60 },
   ];
   class Goku {
@@ -273,21 +272,25 @@ window.onload = () => {
             if (platform.y_ini > this.canvas.height) {
                 platform.x_ini = Math.floor(Math.random() * 390);
                 platform.y_ini = -10;
+                // plataforma reprint
             }
             if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25) && this.reJump > 18) {
                 this.jumpT = true;
                 this.reJump = 0;
                 this.iteration = 0;
                 gokuCount = 6;
+                // control colision plataformas normales
             }
             if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25) && this.reJump > 18) {
                 this.jumpT = true;
                 this.reJump = 0;
                 this.iteration = 0;
                 gokuCount = 6;
+                // control colision nuves move
             }
             if(!(this.goku.x -10 + this.goku.width -40 < this.obstacle.x -25 || this.goku.x +20 > this.obstacle.x + this.obstacle.width -20|| this.goku.y +10 > this.obstacle.y + this.obstacle.heigth -20 || this.goku.y + this.goku.heigth -20 < this.obstacle.y -10)) {
                 this.colition = true
+                // control de colisiones freezer
             }  
             if (this.jumpT == true) {
                 this.platforms[0].y_ini += 1;
@@ -305,6 +308,7 @@ window.onload = () => {
                 this.jump();
                 if (this.goku.y < 60) this.goku.y = 60;
               }
+              // goku sube... repinta
             });
        
         }
