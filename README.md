@@ -24,21 +24,23 @@ Para controlar el personaje, usaremos flecha izquierda y flecha derecha, el salt
 
 ## Condición de victoria
 
-Conseguir puntaje.
+Conseguir 7.000 PUNTOS!
 
 ## Condición de perdida
 
-Caerse.
+ - Caerse.
+ - Colisionar con un Enemigo.
 
 ## Classes
 
 |   Class      | Properties                                                            | Methods                                          |
 | :----------: | --------------------------------------------------------------------- | ------------------------------------------------ |
-|   Goku       | x, y, w, h, vel X, vel Y, jump, imgGoku                               | print(ctx), moveLeft(), moveRigth(), rebound()   |
-| Platform     | x, y, w, h, imgPlatform                                               | print(ctx),                                      |
-| PlatformMove | super (x, y, w, h), imgPlatformMove                                   | print(ctx), move()                               |
+|   Goku       | x, y, w, h, vel X, imgGoku                                            | print(ctx), moveLeft(), moveRigth()              |
+| Platform     | imgPlatform                                                           | print(ctx),                                      |
+| PlatformMove | x, y, w, h, imgPlatformMove , vel X                                   | print(ctx), move()                               |
 | PlatformBreak| super (x, y, w, h), imgPlatformBreaking                               | print(ctx), // BONUS Break()                     |
-| Obstaculo    | x, y, w, h, vel, imgObstacle                                          | print(ctx),                                      |
-|   Juego      | canvas, ctx, backGround, goku, platform, platformMove, platformBreak, | start(), stop(), clear(), print(), recalculate() |
-|              | obstacles, score, intervalId, iteration                               |                                                  |
+| Obstaculo    | x, y, w, h, vel, imgObstacle, vel X                                   | print(ctx), move()                               |
+|              | canvas, ctx, imgWin, imgLoose, imgWallpaper, goku, platform,          | start(), stop(), clear(), print(), recalculate() |
+|   Juego      | obstacles, score, intervalId, iteration, platformMove, platformBreak, | delet(), gravity (), jump(),                     |
+|              | jumpT, colition, reJump.                                              |                                                  |
 ---
