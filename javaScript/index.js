@@ -286,7 +286,7 @@ window.onload = () => {
                 this.iteration = 0;
                 gokuCount = 6;
             }
-            if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x  > this.obstacle.x + this.obstacle.width -20|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -20 < this.obstacle.y -20)) {
+            if(!(this.goku.x -10 + this.goku.width -40 < this.obstacle.x -25 || this.goku.x +20 > this.obstacle.x + this.obstacle.width -20|| this.goku.y +10 > this.obstacle.y + this.obstacle.heigth -20 || this.goku.y + this.goku.heigth -20 < this.obstacle.y -10)) {
                 this.colition = true
             }  
             if (this.jumpT == true) {
