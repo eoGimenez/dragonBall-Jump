@@ -28,8 +28,8 @@ Conseguir 7.000 PUNTOS!
 
 ## Condición de perdida
 
--Caerse.
--Colisionar con un Enemigo.
+ - Caerse.
+ - Colisionar con un Enemigo.
 
 ## Classes
 
