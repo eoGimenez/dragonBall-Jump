@@ -24,8 +24,8 @@ let platforms = [
 ];
 class Goku {
   constructor() {
-    this.x = 140;
-    this.y = 380;
+    this.x = 200;
+    this.y = 200;
     this.width = 80; //width;
     this.heigth = 105; //heigth;
     this.velocidadX = 20;
@@ -107,7 +107,6 @@ class PlatformMove {
     if (this.x > canvas.width) {
       this.x = 0;
     }
-    //  this.y += this.velocidadY
   }
 }
 class PlatformBreak extends Platform {
@@ -135,11 +134,20 @@ class Obstacle {
       this.heigth = 80; 
       this.imgObstacle = new Image ();
       this.imgObstacle.src = "images/cabeza.png";
-      //this.velocidadY = velocidadY; BONUS
+      this.velocidadX = 4;
   }
   print(ctx){
           ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.heigth);
       };
+  move () {
+    this.x += this.velocidadX;
+        if (this.x >= (canvas.width -85)) {
+            this.velocidadX = -4;
+        }
+        if (this.x <= -35) {
+            this.velocidadX = 4;
+        }
+  }
   }
   class Game {
   constructor(platforms) {
@@ -177,7 +185,7 @@ class Obstacle {
         this.gravity();
         this.print();
         this.stop();
-      }, 20);
+      }, 25);
     }
   }
   stop() {
@@ -189,7 +197,7 @@ class Obstacle {
       this.ctx.drawImage(this.lose, 150, 180, 300, 300);
       this.ctx.fillText("GAME OVER", 200, 510);
     }
-    if (this.score >= 2000) {
+    if (this.score >= 20000) {
       gameActive = false;
       clearInterval(this.intervalId)
       this.win.src = "images/winphoto.png";
@@ -209,9 +217,11 @@ class Obstacle {
     this.ctx.fillText(`SCORE: ${this.score}`, 30, 50);
     this.platform.print(this.ctx);
     this.goku.print(this.ctx);
-    if (this.score >= 2500 && this.score <= 7500) {
+    if (this.score >= 2000 && this.score <= 7500) {
       this.platformMove.print(this.ctx);
-      this.obstacle.print(this.ctx)
+    }
+    if (this.score >= 3000 && this.score <= 8500) {
+        this.obstacle.print(this.ctx)
     }
   }
 
@@ -248,6 +258,7 @@ class Obstacle {
       } */
   recalculate() {
       this.platformMove.move();
+      this.obstacle.move();
       this.platforms.forEach((platform) => {
           if (platform.y_ini > this.canvas.height) {
               platform.x_ini = Math.floor(Math.random() * 390);
@@ -259,14 +270,14 @@ class Obstacle {
               this.iteration = 0;
               gokuCount = 6;
           }
-          if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25)) {
+          if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25) && this.reJump > 18) {
               this.jumpT = true;
+              this.reJump = 0;
               this.iteration = 0;
               gokuCount = 6;
           }
-          if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x +10 > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
+          if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x  > this.obstacle.x + this.obstacle.width -20|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -20 < this.obstacle.y -20)) {
               this.colition = true
-              console.log(this.colition)
           }  
           if (this.jumpT == true) {
               this.platforms[0].y_ini += 1;
@@ -274,10 +285,13 @@ class Obstacle {
               this.platforms[2].y_ini += 1;
               this.platforms[3].y_ini += 1;
               this.platforms[4].y_ini += 1;
-              if (this.score >= 2500 && this.score <= 7500) {
+              if (this.score >= 2000 && this.score <= 7500) {
                 this.platformMove.y += 1;
-                this.obstacle.y += 1;
               }
+              if (this.score >= 3000 && this.score <= 8500) {
+                
+                this.obstacle.y += 1;
+            }
               this.jump();
               if (this.goku.y < 60) this.goku.y = 60;
             }
@@ -296,6 +310,8 @@ class Obstacle {
       game.delet();
       game = new Game(platforms);
       startGame();
+      btnSound.innerHTML = 'SOUND ON'
+      soundActive = true;
   }
 };
 function startGame() {
@@ -314,6 +330,18 @@ document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) =>
                   break;
       }
   });
+  document.getElementsByTagName("body")[0].addEventListener("keyup", (flecha) => {
+    switch (flecha.key) {
+        case "ArrowLeft":
+            game.goku.moveLeft();
+            break;
+        case "ArrowRight":
+            game.goku.moveRight();
+            break;
+            default:
+                break;
+    }
+});
   document.getElementsByClassName('btn-sound')[0].onclick = () => {
       if (!soundActive) {
           sound.play();
