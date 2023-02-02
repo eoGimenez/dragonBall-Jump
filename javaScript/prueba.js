@@ -17,7 +17,7 @@
 
         }
     } */
-
+// saihfasdadsadasdoifhbweofbwoqef
 //}
 let inicio = 0;
 let rebote = (() => {
@@ -41,3 +41,6 @@ let inter = setInterval(() => {
     ctx.fillStyle = "black";
     rebote()
 }, 20);
+
+
+

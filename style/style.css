@@ -1,13 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
 body {
-    background-image: url("../images/casa_kame.jpg");
+    background-image: url("..//images/GokuFondoCanvas.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100vw;
-/*     height: 100vw; */
-    
-}
+    font-family: 'Rubik Mono One';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  #title {
+    background-size: cover;
+    display: flex;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  #div-list {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  #list {
+    font-weight: bold;
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-#canvas {
-    border: 2px solid black;
-}
+  #list li {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  #list li img {
+    width: 40px;
+    margin-right: 10px;
+  }
+  
+  #intro {
+    text-align: center;
+    margin-right: 80px;
+  }
+  
+  #arrows {
+    width: 100px;
+    margin-top: 20px;
+  }
+  
+  #btn {
+    font-size: 1em;
+    width: 150px;
+    height: 50px;
+    border: 0;
+    border-radius: 25px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:contain;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #btn:hover {
+    cursor: pointer;
+    background-color: orangered;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .btn-sound {
+    background-color: yellow;
+  }
+  
+  .btn-sound:hover {
+    background-color: orange;
+  }
+  
+  #canvas {
+    border-radius: 40px;
+    box-shadow: 10px 10px 20px lightblue;
+    }
+  
+  #gameBoard {
+    display: none;
+  }
+  p{
+    margin: 30px;
+  }
+  
+  
+  

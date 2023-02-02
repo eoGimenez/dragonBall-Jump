@@ -8,9 +8,38 @@
     <link rel="stylesheet" href="style/style.css"/>
 </head>
 <body> 
-    <h1></h1>
+    <div id = "intro">
+        <img id = "title" src = "images/Title.png" alt = "Game title"></img>
+        <div id="div-list">
+          <ul id="list">
+            <li>
+              <img src="images/Bola 1.png" alt="icon1"> ¡intenta llegar a los 7.000 puntos!        
+            </li>
+            <br>
+            <li>
+              <img src="images/Bola2.png" alt="icon2"> ¡esquiva a tu mayor enemigo!      
+            </li>       
+            <br>
+            <li>    
+              <img src="images/Bola3.png" alt="icon3"> ¡cuidado con caer al vacio!   
+            </li>        
+            <br>          
+            <li>
+              <img src="images/Bola4.png" alt="icon4"> te dejamos una pista más abajo de como moverte 🙄
+            </li>        
+          </ul>
+          <div>
+            <img id = "arrows" src = "images/arrows.png" alt = "Arrow"></img>
+          </div>       
+          </div>
+        <button id = "btn">START</button>
+        <button id = "btn" class="btn-sound">SOUND ON</button>
+        <div>
+          <p>Production &copy; 2023 eugenio - xabier - adrian</p>
+        </div>
+    </div>
     <div id="gameBoard">
-        <canvas id="canvas" width="600" height="300"></canvas>
+        <canvas id="canvas" width="550" height="750"></canvas>
     </div>
     <script src="javaScript/index.js"></script>
 </body>
