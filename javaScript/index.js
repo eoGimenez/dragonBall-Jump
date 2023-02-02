@@ -71,6 +71,7 @@ class Goku {
       this.x = 0;
     }
   }
+ 
 }
 
 class Platform {
@@ -133,6 +134,7 @@ class Obstacle {
       this.width = 100;
       this.heigth = 80; 
       this.imgObstacle = new Image ();
+      this.velocidadX=5
       this.imgObstacle.src = "images/cabeza.png";
       this.velocidadX = 4;
   }
@@ -159,6 +161,40 @@ class Obstacle {
         }
   }
   }
+ move() {
+        this.x += this.velocidadX;
+        if (this.x > canvas.width) {
+          this.x = 0;
+        }
+  }
+} 
+class Dragon {
+    constructor (canvas) {
+        this.x = Math.floor(Math.random() * 400);
+        this.y = 200;
+        this.width = 50;
+        this.heigth = 50;
+        this.imgDragon= new Image();
+        this.imgDragon.src= "images/Bola3.png"
+    }
+    print (ctx) {
+        ctx.drawImage(this.imgDragon, this.x, this.y, this.width, this.heigth)
+    }
+    bolaDragon () {
+        if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
+            this.goku.y -= 100;
+        } else if (this.jumpT == true && this.iteration >= 21 && this.iteration <=40) {
+            this.goku.y -= 80;
+        } else if (this.jumpT == true && this.iteration >= 41 && this.iteration <=60) {
+            this.goku.y -= 40;
+        } else if (this.jumpT == true && this.iteration >= 61 && this.iteration <= 79) {
+            this.goku.y -= 10;
+        } else if (this.jumpT == true && this.iteration == 80) {
+            this.iteration = 0;
+            this.jumpT = false
+        } 
+    } 
+}
   class Game {
   constructor(platforms) {
     this.canvas = document.getElementById("canvas");
@@ -172,7 +208,8 @@ class Obstacle {
     this.goku = new Goku();
     this.platform = new Platform();
     this.platformMove = new PlatformMove();
-    this.obstacle = new Obstacle ()
+    this.obstacle = new Obstacle ();
+    this.dragon = new Dragon ();
     this.platformBreak = new PlatformBreak();
     this.platforms = platforms;
     this.platformsMove = [];
@@ -207,7 +244,7 @@ class Obstacle {
       this.ctx.drawImage(this.lose, 150, 180, 300, 300);
       this.ctx.fillText("GAME OVER", 200, 510);
     }
-    if (this.score >= 7000) {
+    if (this.score >= 8000) {
       gameActive = false;
       clearInterval(this.intervalId)
       this.win.src = "images/winphoto.png";
@@ -228,15 +265,21 @@ class Obstacle {
     this.platform.print(this.ctx);
     this.goku.print(this.ctx);
     if (this.score >= 2000 && this.score <= 7500) {
+   
+    if (this.score >= 2500 && this.score <= 7500) {
       this.platformMove.print(this.ctx);
     }
     if (this.score >= 3000 && this.score <= 8500) {
         this.obstacle.print(this.ctx)
+      this.obstacle.print(this.ctx);
+      this.dragon.print(this.ctx);
+      
     }
   }
 
   gravity() {
     this.goku.y += 8;
+    
   }
   jump() {
     if (this.jumpT == true && this.iteration >= 0 && this.iteration <= 8) {
@@ -251,23 +294,12 @@ class Obstacle {
       this.jumpT = false;
     }
   }
+  
 
-    /* bolaDragon () {
-          if (this.jumpT == true && this.iteration >= 0 && this.iteration <=20) {
-              this.goku.y -=100;
-          } else if (this.jumpT == true && this.iteration >= 21 && this.iteration <=40) {
-              this.goku.y -= 80;
-          } else if (this.jumpT == true && this.iteration >= 41 && this.iteration <=60) {
-              this.goku.y -= 40;
-          } else if (this.jumpT == true && this.iteration >= 61 && this.iteration <= 79) {
-              this.goku.y -= 10;
-          } else if (this.jumpT == true && this.iteration == 80) {
-              this.iteration = 0;
-              this.jumpT = false
-          } 
-      } */
+ 
   recalculate() {
       this.platformMove.move();
+      this.obstacle.move();
       this.obstacle.move();
       this.platforms.forEach((platform) => {
           if (platform.y_ini > this.canvas.height) {
@@ -286,9 +318,15 @@ class Obstacle {
               this.iteration = 0;
               gokuCount = 6;
           }
-          if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x  > this.obstacle.x + this.obstacle.width -20|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -20 < this.obstacle.y -20)) {
+          if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +10 || this.goku.x +10 > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -80 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
               this.colition = true
+              console.log(this.colition)
           }  
+          if ((this.goku.x + this.goku.width - 20 < this.dragon.x + 10 || this.goku.x - 10 > this.dragon.x + this.dragon.w - 50 || this.goku.y + this.goku.heigth - 10 < this.dragon.y + 20 || this.goku.y - 10 > this.dragon.h + this.dragon.y - 25)) {
+            this.dragon.bolaDragon();
+            gokuCount = 6;
+            this.iteration = 0;
+                }
           if (this.jumpT == true) {
               this.platforms[0].y_ini += 1;
               this.platforms[1].y_ini += 1;
@@ -301,7 +339,7 @@ class Obstacle {
               if (this.score >= 3000 && this.score <= 8500) {
                 
                 this.obstacle.y += 1;
-            }
+              }
               this.jump();
               if (this.goku.y < 60) this.goku.y = 60;
             }
@@ -340,6 +378,18 @@ document.getElementsByTagName("body")[0].addEventListener("keydown", (flecha) =>
                   break;
       }
   });
+  document.getElementsByTagName("body")[0].addEventListener("keyup", (flecha) => {
+    switch (flecha.key) {
+        case "ArrowLeft":
+            game.goku.moveLeft();
+            break;
+        case "ArrowRight":
+            game.goku.moveRight();
+            break;
+            default:
+                break;
+    }
+});
   document.getElementsByTagName("body")[0].addEventListener("keyup", (flecha) => {
     switch (flecha.key) {
         case "ArrowLeft":
