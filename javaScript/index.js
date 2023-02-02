@@ -130,7 +130,7 @@ window.onload = () => {
   class Obstacle {
     constructor (canvas) {
         this.x = Math.floor(Math.random() * 350);
-        this.y = -50;
+        this.y = -60;
         this.width = 100;
         this.heigth = 80; 
         this.imgObstacle = new Image ();
