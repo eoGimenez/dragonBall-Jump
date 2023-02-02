@@ -258,7 +258,7 @@ window.onload = () => {
                 this.iteration = 0;
                 gokuCount = 6;
             }
-            if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x +10 > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
+            if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x  > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
                 this.colition = true
                 console.log(this.colition)
             }  
