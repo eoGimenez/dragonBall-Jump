@@ -130,7 +130,7 @@ window.onload = () => {
   class Obstacle {
     constructor (canvas) {
         this.x = Math.floor(Math.random() * 350);
-        this.y = -10;
+        this.y = -50;
         this.width = 100;
         this.heigth = 80; 
         this.imgObstacle = new Image ();
@@ -163,12 +163,14 @@ window.onload = () => {
       this.iteration = 0;
       this.jumpT = false;
       this.colition = false;
+      this.reJump = 0;
     }
     start() {
       if (this.intervalId == undefined) {
         this.intervalId = setInterval(() => {
           this.score += 10;
           gokuCount++;
+          this.reJump++;
           this.iteration++;
           this.clear();
           this.recalculate();
@@ -248,9 +250,10 @@ window.onload = () => {
                 platform.x_ini = Math.floor(Math.random() * 390);
                 platform.y_ini = -10;
             }
-            if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25)) {
+            if (!(this.goku.x + this.goku.width - 20 < platform.x_ini + 10 || this.goku.x - 10 > platform.x_ini + platform.w - 50 || this.goku.y + this.goku.heigth - 10 < platform.y_ini + 20 || this.goku.y - 10 > platform.h + platform.y_ini - 25) && this.reJump > 18) {
                 this.jumpT = true;
                 this.iteration = 0;
+                this.reJump = 0;
                 gokuCount = 6;
             }
             if (!(this.goku.x + this.goku.width - 20 < this.platformMove.x + 10 || this.goku.x - 10 > this.platformMove.x + this.platformMove.w - 50 || this.goku.y + this.goku.heigth - 10 < this.platformMove.y + 20 || this.goku.y - 10 > this.platformMove.h + this.platformMove.y - 25)) {
@@ -260,7 +263,7 @@ window.onload = () => {
             }
             if(!(this.goku.x + this.goku.width -20 < this.obstacle.x +20 || this.goku.x +10 > this.obstacle.x + this.obstacle.width -10|| this.goku.y -10 > this.obstacle.y + this.obstacle.heigth -5 || this.goku.y + this.goku.heigth -10 < this.obstacle.y +20)) {
                 this.colition = true
-                console.log(this.colition)
+                console.log(this.colition) // fijarse si el error sale cuando llega al minimo de Y en el centro de la pantalla antes de que salgsa el bstaculo,
             }  
             if (this.jumpT == true) {
                 this.platforms[0].y_ini += 1;
@@ -280,7 +283,7 @@ window.onload = () => {
         }
     }
     
-    let sound = new Audio("sounds/Musica.mp3");
+    let sound = new Audio("sounds/Musica.mp3"); // mover audio al constructor del juego para que cada vez que se deletee la variable "game" tambien borre la url del audio y asi añ darle al boton de "start" se reinicie el audio
     let game = new Game(platforms);
     document.getElementById("btn").onclick = () => {
     if (!gameActive) {
