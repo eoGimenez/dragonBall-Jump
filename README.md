@@ -28,7 +28,7 @@ Conseguir puntaje.
 
 ## Condición de perdida
 
-Caerse.
+*Caerse.
 
 ## Classes
 
