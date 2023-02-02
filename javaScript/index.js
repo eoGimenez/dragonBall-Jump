@@ -19,7 +19,6 @@ window.onload = () => {
     { x_ini: 200, y_ini: 450, w: 160, h: 60 },
     { x_ini: 400, y_ini: 140, w: 160, h: 60 },
     { x_ini: 100, y_ini: 600, w: 160, h: 60 },
-    //{ x_ini: 50, y_ini: 50, w: 160, h: 60},
     { x_ini: 200, y_ini: 40, w: 160, h: 60 },
   ];
   class Goku {
