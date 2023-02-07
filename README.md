@@ -8,7 +8,7 @@ Somos Xabier, Adrian y Eugenio, estudiamos web development. Creamos el juego de 
 
 ## Deployment
 
-You can play the game [here](#).
+You can play the game [here](https://eogimenez.github.io/dragonBall-Jump/).
 
 ## Estructura de trabajo
 
